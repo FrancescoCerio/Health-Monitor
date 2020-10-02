@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Health Monitor</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="aggiungi_report">Aggiungi report</string>
+
+    <!-- Main Activity -->
+    <string name="home_title">Benvenuto in Health Monitor</string>
+    <string name="home_description">L\'App che ti permette di tenere sotto controllo la tua salute.</string>
+
+    <!-- Report strings -->
+    <string name="ReportActivity">Report Activity</string>
+    <string name="report_title">Aggiungi Report</string>
+    <string name="temp_id">Temperatura corporea</string>
+    <string name="battito_id">Battito cardiaco</string>
+    <string name="pressione_id">Pressione sanguigna</string>
+    <string name="glicemia_id">Glicemia</string>
+    <string name="save_report">Salva</string>
+    <string name="label_temp">Temperatura</string>
+    <string name="label_press">Pressione</string>
+    <string name="label_glic">Glicemia</string>
+    <string name="label_batt">Battito</string>
+    <string name="label_note">Nota</string>
+</resources>
