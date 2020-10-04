@@ -79,7 +79,6 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
 
     private TextInputEditText noteText;
 
-
     @SuppressLint("SimpleDateFormat")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,9 +95,6 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
-
-
-
 
         // Prendo i valori inseriti dei parametri
         temperatureText = findViewById(R.id.temperatura_text);
@@ -229,7 +225,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         int pressioneValue = Integer.parseInt(pressureText.getText().toString());
         int battitoValue = Integer.parseInt(battitoText.getText().toString());
         int glicemiaValue = Integer.parseInt(glicemiaText.getText().toString());
-        String noteText = this.noteText.getText().toString();
+        String noteText = Objects.requireNonNull(this.noteText.getText()).toString();
 
         float tempPriority = Float.parseFloat(tSliderValue);
         float pressPriority = Float.parseFloat(pSliderValue);
@@ -253,6 +249,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         if(id != -1){
             data.putExtra(EXTRA_ID, id);
         }
+        Log.d("Mo scazzo", "UNA BELLA BESTIA");
 
         setResult(RESULT_OK, data);
         finish();
