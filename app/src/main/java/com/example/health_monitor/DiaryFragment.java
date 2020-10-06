@@ -79,6 +79,15 @@ public class DiaryFragment extends Fragment {
             }
         });
 
+        FloatingActionButton openReport = diaryView.findViewById(R.id.button_add_note_diary);
+        openReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), AddEditReportActivity.class);
+                startActivityForResult(i, ADD_REPORT_REQUEST);
+            }
+        });
+
         return diaryView;
     }
 

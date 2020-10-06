@@ -6,21 +6,16 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="Mo sc" />
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26eac295-0583-46da-bf47-bea87b44ff9c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/DiaryFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/HomeFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/home_icon.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_graphic_eq_24.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/diary_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/home_layout.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/menu/bottom_navigation.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_diary.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_home_outline.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_icons8_health.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_icons8_home.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/last_value_item.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -32,20 +27,24 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/AddEditReportActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/AddEditReportActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/DB/ReportDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/DB/ReportDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/DB/ReportDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/DB/ReportDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/DiaryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/DiaryFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/HomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/HomeFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/add_report_menu.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/add_report_menu.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/diary_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/diary_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/home_layout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/home_layout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/bottom_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/bottom_navigation.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3a_XL_API_29" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="223de0222d037ece" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -276,38 +275,35 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="308" y="162" key="AndroidThemeDialog/0.0.1440.900@0.0.1440.900" timestamp="1600761882784" />
-    <state width="1398" height="157" key="GridCell.Tab.0.bottom" timestamp="1601755992634">
+    <state width="1398" height="195" key="GridCell.Tab.0.bottom" timestamp="1601824612719">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="157" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1601755992634" />
+    <state width="1398" height="195" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1601824612719" />
     <state width="1398" height="214" key="GridCell.Tab.0.bottom/0.23.1440.828@0.23.1440.828" timestamp="1599054245295" />
-    <state width="1398" height="-40" key="GridCell.Tab.0.bottom/1440.66.1194.834/0.0.1440.900@0.0.1440.900" timestamp="1601743458160" />
-    <state width="1398" height="157" key="GridCell.Tab.0.center" timestamp="1601755992632">
+    <state width="1398" height="195" key="GridCell.Tab.0.center" timestamp="1601824612718">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="157" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1601755992632" />
+    <state width="1398" height="195" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1601824612718" />
     <state width="1398" height="214" key="GridCell.Tab.0.center/0.23.1440.828@0.23.1440.828" timestamp="1599054245294" />
-    <state width="1398" height="-40" key="GridCell.Tab.0.center/1440.66.1194.834/0.0.1440.900@0.0.1440.900" timestamp="1601743458159" />
-    <state width="1398" height="157" key="GridCell.Tab.0.left" timestamp="1601755992632">
+    <state width="1398" height="195" key="GridCell.Tab.0.left" timestamp="1601824612717">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="157" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1601755992632" />
+    <state width="1398" height="195" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1601824612717" />
     <state width="1398" height="214" key="GridCell.Tab.0.left/0.23.1440.828@0.23.1440.828" timestamp="1599054245293" />
-    <state width="1398" height="-40" key="GridCell.Tab.0.left/1440.66.1194.834/0.0.1440.900@0.0.1440.900" timestamp="1601743458158" />
-    <state width="1398" height="157" key="GridCell.Tab.0.right" timestamp="1601755992633">
+    <state width="1398" height="195" key="GridCell.Tab.0.right" timestamp="1601824612718">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="157" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1601755992633" />
+    <state width="1398" height="195" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1601824612718" />
     <state width="1398" height="214" key="GridCell.Tab.0.right/0.23.1440.828@0.23.1440.828" timestamp="1599054245294" />
-    <state width="1398" height="-40" key="GridCell.Tab.0.right/1440.66.1194.834/0.0.1440.900@0.0.1440.900" timestamp="1601743458159" />
     <state x="221" y="89" key="SettingsEditor" timestamp="1600862734619">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="221" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1600862734619" />
-    <state x="100" y="100" width="1240" height="700" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1600862746831">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="100" y="100" width="1240" height="700" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1601810215274">
+      <screen x="0" y="23" width="1440" height="827" />
     </state>
     <state x="100" y="100" width="1240" height="700" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1440.900@0.0.1440.900" timestamp="1600862746831" />
+    <state x="100" y="100" width="1240" height="700" key="com.android.tools.idea.avdmanager.AvdListDialog/0.23.1440.827@0.23.1440.827" timestamp="1601810215274" />
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1601024950962">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

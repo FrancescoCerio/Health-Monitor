@@ -47,4 +47,7 @@ public interface ReportDAO {
 
     @Query("SELECT ROUND(AVG(cardio), 2) FROM reportdb")
     double getAvgCardio();
+
+    @Query("SELECT * FROM reportdb GROUP BY date HAVING MAX(date)")
+    Report getLastReport();
 }

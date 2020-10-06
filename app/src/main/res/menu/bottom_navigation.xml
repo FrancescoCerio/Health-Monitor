@@ -2,14 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_home"
-        android:icon="@drawable/home_icon"
+        android:icon="@drawable/ic_icons8_home"
         android:title="Home" />
     <item
         android:id="@+id/nav_diary"
-        android:icon="@drawable/ic_baseline_favorite_border_24"
+        android:icon="@drawable/ic_icons8_health"
         android:title="Diario" />
-    <item
-        android:id="@+id/nav_graph"
-        android:icon="@drawable/ic_baseline_graphic_eq_24"
-        android:title="Grafici" />
 </menu>
