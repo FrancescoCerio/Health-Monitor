@@ -1,15 +1,12 @@
 package com.example.health_monitor;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.health_monitor.DB.DateConverter;
@@ -18,18 +15,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -41,8 +33,35 @@ public class HomeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View homeView = inflater.inflate(R.layout.home_layout, container, false);
+        final View homeView = inflater.inflate(R.layout.home_layout, container, false);
+        final Report[] lastReport = new Report[1];
 
+        reportViewModel = new ViewModelProvider(this,
+                ViewModelProvider
+                        .AndroidViewModelFactory
+                        .getInstance(getActivity().getApplication()))
+                .get(ReportViewModel.class);
+
+        reportViewModel.getLastReport().observe(this, new Observer<Report>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onChanged(Report report) {
+                if(report != null){
+                    lastReport[0] = report;
+                    TextView cardTemperatureValue = homeView.findViewById(R.id.card_temperatura_value);
+                    TextView cardBattitoValue = homeView.findViewById(R.id.card_battito_value);
+                    TextView cardGlicemiaValue = homeView.findViewById(R.id.card_glicemia_value);
+                    TextView cardPressioneValue = homeView.findViewById(R.id.card_pressione_value);
+
+                    cardTemperatureValue.setText(Integer.toString(lastReport[0].getTemperature()));
+                    cardBattitoValue.setText(Integer.toString(lastReport[0].getCardio()));
+                    cardGlicemiaValue.setText(Integer.toString(lastReport[0].getGlicemia()));
+                    cardPressioneValue.setText(Integer.toString(lastReport[0].getPressure()));
+                }
+            }
+        });
+
+        /*
         RecyclerView recyclerView = homeView.findViewById(R.id.value_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
@@ -63,6 +82,8 @@ public class HomeFragment extends Fragment {
                 adapter.setReports(reports);
             }
         });
+
+         */
 
         FloatingActionButton openReport = homeView.findViewById(R.id.button_add_note_home);
         openReport.setOnClickListener(new View.OnClickListener() {

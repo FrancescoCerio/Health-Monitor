@@ -13,11 +13,13 @@ import androidx.lifecycle.LiveData;
 public class ReportViewModel extends AndroidViewModel {
     private ReportRepository repository;
     private LiveData<List<Report>>  allReport;
+    private LiveData<Report> lastReport;
 
     public ReportViewModel(@NonNull Application application) {
         super(application);
         repository = new ReportRepository(application);
         allReport = repository.getAllReport();
+        lastReport = repository.getLastReport();
     }
 
     public void insert(Report report){
@@ -34,6 +36,14 @@ public class ReportViewModel extends AndroidViewModel {
 
     public LiveData<List<Report>> getAllReport(){
         return allReport;
+    }
+
+    public LiveData<Report> getLastReport(){
+        return lastReport;
+    }
+
+    public Report getReportById(int current_id){
+        return repository.getReportById(current_id);
     }
 
 }

@@ -208,6 +208,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
             //dateButton.setText(intent.getStringExtra(EXTRA_DATE));
             noteText.setText(intent.getStringExtra(EXTRA_NOTE));
             Long dateLong = intent.getLongExtra(EXTRA_DATE, DateConverter.fromDate(Calendar.getInstance().getTime()));
+            dateButton.setText((CharSequence) DateConverter.toDate(dateLong));
 
         } else {
             actionBar.setTitle(Html.fromHtml("<font color=\"#212121\">" + "Aggiungi Report" + "</font>"));
@@ -249,7 +250,6 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         if(id != -1){
             data.putExtra(EXTRA_ID, id);
         }
-        Log.d("Mo scazzo", "UNA BELLA BESTIA");
 
         setResult(RESULT_OK, data);
         finish();

@@ -38,6 +38,15 @@ public class ReportRepository {
         return all_report;
     }
 
+    public LiveData<Report> getLastReport(){
+        return report_dao.getLastReport();
+    }
+
+    public Report getReportById(int current_id){
+        new GetReportByIdAsyncTask(report_dao).execute(current_id);
+        return null;
+    }
+
     private static class InsertReportAsyncTask extends AsyncTask<Report, Void, Void>{
         private ReportDAO reportDao;
 
@@ -76,6 +85,20 @@ public class ReportRepository {
         @Override
         protected Void doInBackground(Report... reports) {
             reportDao.update(reports[0]);
+            return null;
+        }
+    }
+
+    private static class GetReportByIdAsyncTask extends AsyncTask<Integer, Void, Void>{
+        private ReportDAO reportDao;
+
+        private GetReportByIdAsyncTask(ReportDAO reportdao){
+            this.reportDao = reportdao;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            reportDao.getReportById(integers[0]);
             return null;
         }
     }

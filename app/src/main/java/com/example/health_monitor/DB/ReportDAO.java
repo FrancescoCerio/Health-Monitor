@@ -24,6 +24,12 @@ public interface ReportDAO {
     @Query("SELECT * FROM reportdb ORDER BY tempPriority DESC")
     LiveData<List<Report>> getAllReport();
 
+    @Query("SELECT * FROM reportdb ORDER BY id DESC LIMIT 1")
+    LiveData<Report> getLastReport();
+
+    @Query("SELECT * FROM reportdb WHERE id = :current_id")
+    LiveData<Report> getReportById(int current_id);
+
     @Query("SELECT pressure FROM reportdb")
     int[] getAllPressureValues();
 
@@ -48,6 +54,4 @@ public interface ReportDAO {
     @Query("SELECT ROUND(AVG(cardio), 2) FROM reportdb")
     double getAvgCardio();
 
-    @Query("SELECT * FROM reportdb GROUP BY date HAVING MAX(date)")
-    Report getLastReport();
 }
