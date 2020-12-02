@@ -1,5 +1,6 @@
 package com.example.health_monitor;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.EntryXComparator;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
@@ -24,6 +26,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -42,12 +46,17 @@ public class TestGraph extends AppCompatActivity {
     LineDataSet dataSet;
     LineChart chart;
     LineData lineData;
+    MaterialButtonToggleGroup toggleBtn;
 
+    @SuppressLint("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_graph);
         chart = (LineChart) findViewById(R.id.chart);
+        dataSet = null;
+        toggleBtn = findViewById(R.id.toggle_button_group);
+        toggleBtn.clearOnButtonCheckedListeners();
 
         reportViewModel = new ViewModelProvider(this,
                 ViewModelProvider
@@ -59,14 +68,17 @@ public class TestGraph extends AppCompatActivity {
             @Override
             public void onChanged(List<Report> reports) {
                 rep.addAll(reports);
+                Collections.sort(rep, new Comparator<Report>() {
+                    public int compare(Report o1, Report o2) {
+                        return o1.getDate().compareTo(o2.getDate());
+                    }
+                });
                 setChartValues(1);
             }
         });
 
-
-
-        MaterialButtonToggleGroup toggleBtn = findViewById(R.id.toggle_button_group);
         toggleBtn.setSingleSelection(true);
+        toggleBtn.check(1);
         toggleBtn.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
             @Override
             public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
