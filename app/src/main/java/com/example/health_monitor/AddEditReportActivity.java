@@ -54,7 +54,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     public static final String EXTRA_BATTITO_SLIDER =
             "com.example.health_monitor.EXTRA_BATTITO_SLIDER";
     public static final String EXTRA_DATE =
-            "com.example.health_monitor.EXTRA_DATE_SLIDER";
+            "com.example.health_monitor.EXTRA_DATE";
 
     private TextInputEditText temperatureText;
     private TextInputEditText pressureText;
@@ -77,6 +77,8 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     private Date date;
     private Long dateLong;
 
+    private Calendar calendar = Calendar.getInstance();
+
     private TextInputEditText noteText;
 
     @SuppressLint("SimpleDateFormat")
@@ -86,7 +88,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         setContentView(R.layout.activity_report);
 
         // Imposto l'ora corrente nel pulsante della data
-        setButtonDate();
+        setButtonDate(null);
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,24 +159,34 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         });
     }
 
-    private void setButtonDate(){
-        Calendar c = Calendar.getInstance();
+    private void setButtonDate(Long currentDate){
         dateFormat = new SimpleDateFormat("MMM' 'dd', 'yyyy", Locale.ITALY);
-        String currentDateString = dateFormat.format(c.getTime());
-        dateLong = DateConverter.fromDate(c.getTime());
         dateButton = findViewById(R.id.dateButton);
+        String currentDateString;
+        
+        if(currentDate == null){
+            currentDateString = dateFormat.format(calendar.getTime());
+            dateLong = DateConverter.fromDate(calendar.getTime());
+        } else {
+            currentDateString = dateFormat.format(DateConverter.toDate(currentDate));
+            Log.d("SET DATE", currentDateString);
+            dateLong = currentDate;
+            Log.d("SET DATE LONG", dateLong.toString());
+        }
         dateButton.setText(currentDateString);
     }
 
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        dateLong = DateConverter.fromDate(c.getTime());
-        String currentDateString = DateFormat.getDateInstance().format(c.getTime());
-        dateButton.setText(currentDateString);
+        calendar.setTimeInMillis(dateLong);
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        dateLong = DateConverter.fromDate(calendar.getTime());
+        setButtonDate(dateLong);
+
+        view.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
 
     private void setActionBarStyle(){
@@ -195,6 +207,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
 
         if(intent.hasExtra(EXTRA_ID)){
             actionBar.setTitle(Html.fromHtml("<font color=\"#212121\">" + "Modifica Report" + "</font>"));
+            actionBar.setHomeAsUpIndicator(null);
             temperatureText.setText(String.valueOf(intent.getIntExtra(EXTRA_TEMPERATURE, 36)));
             temperatureSlider.setValues(intent.getFloatExtra(EXTRA_TEMPERATURE_SLIDER, 3));
             pressureText.setText(String.valueOf(intent.getIntExtra(EXTRA_PRESSURE, 40)));
@@ -203,18 +216,18 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
             battitoSlider.setValues(intent.getFloatExtra(EXTRA_BATTITO_SLIDER, 3));
             glicemiaText.setText(String.valueOf(intent.getIntExtra(EXTRA_GLICEMIA, 40)));
             glicemiaSlider.setValues(intent.getFloatExtra(EXTRA_GLICEMIA_SLIDER, 3));
-
-            // TODO: sistemare la data nel update
-            //dateButton.setText(intent.getStringExtra(EXTRA_DATE));
             noteText.setText(intent.getStringExtra(EXTRA_NOTE));
-            Long dateLong = intent.getLongExtra(EXTRA_DATE, DateConverter.fromDate(Calendar.getInstance().getTime()));
-            dateButton.setText((CharSequence) DateConverter.toDate(dateLong));
+            dateLong = intent.getLongExtra(EXTRA_DATE, DateConverter.fromDate(Calendar.getInstance().getTime()));
+            calendar.setTimeInMillis(dateLong);
+            setButtonDate(dateLong);
 
         } else {
             actionBar.setTitle(Html.fromHtml("<font color=\"#212121\">" + "Aggiungi Report" + "</font>"));
         }
 
     }
+
+
 
     private void saveReport(){
         if(temperatureText.getText().toString().isEmpty() || pressureText.getText().toString().isEmpty() || battitoText.getText().toString().isEmpty() || glicemiaText.getText().toString().isEmpty() ){
@@ -233,6 +246,10 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         float battitoPriority = Float.parseFloat(bSliderValue);
         float glicemiaPriority = Float.parseFloat(gSliderValue);
 
+        Date date = calendar.getTime();
+        //dateLong = DateConverter.fromDate(date);
+        Log.d("DATA DA SALVARE", String.valueOf(dateLong));
+
         // Inserisco i valori nell'intent da passare alla MainActivity
         Intent data = new Intent();
         data.putExtra(EXTRA_TEMPERATURE, temperatureValue);
@@ -243,8 +260,9 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         data.putExtra(EXTRA_BATTITO_SLIDER, battitoPriority);
         data.putExtra(EXTRA_GLICEMIA, glicemiaValue);
         data.putExtra(EXTRA_GLICEMIA_SLIDER, glicemiaPriority);
-        data.putExtra(EXTRA_DATE, dateLong);
+        //data.putExtra(EXTRA_DATE, dateLong);
         data.putExtra(EXTRA_NOTE, noteText);
+        data.putExtra(EXTRA_DATE, dateLong);
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if(id != -1){

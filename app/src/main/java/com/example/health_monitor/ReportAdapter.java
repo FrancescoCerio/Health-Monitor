@@ -7,8 +7,11 @@ import android.widget.TextView;
 
 import com.example.health_monitor.DB.Report;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,12 +32,14 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
     @Override
     public void onBindViewHolder(@NonNull ReportHolder holder, int position) {
         Report currentReport = reports.get(position);
-        holder.textViewTitle.setText(String.valueOf(currentReport.getId()));
+        //holder.textViewTitle.setText(String.valueOf(currentReport.getId()));
         if(!currentReport.getNote().isEmpty())
             holder.textViewDescription.setText(currentReport.getNote());
         else
-            holder.textViewDescription.setText("");
-        holder.textViewPriority.setText(String.valueOf(currentReport.getTPriority()));
+            holder.textViewDescription.setText("Nessuna nota");
+        Date date = currentReport.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd' 'MMM' 'yyyy", Locale.ITALY);
+        holder.textViewTitle.setText(String.valueOf(dateFormat.format(date.getTime())));
     }
 
     @Override
@@ -50,13 +55,12 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHold
     class ReportHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
         private TextView textViewDescription;
-        private TextView textViewPriority;
+        //private TextView textViewPriority;
 
         public ReportHolder(@NonNull View itemView) {
             super(itemView);
-            // TODO: cambiare i valori del ReportItem
             textViewTitle = itemView.findViewById(R.id.text_view_title);
-            textViewPriority = itemView.findViewById(R.id.text_view_priority);
+            //textViewPriority = itemView.findViewById(R.id.text_view_priority);
             textViewDescription = itemView.findViewById(R.id.text_view_description);
 
             itemView.setOnClickListener(new View.OnClickListener() {

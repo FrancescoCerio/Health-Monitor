@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="8dp">
 
     <TextView
         android:id="@+id/ultimo_report"
@@ -50,7 +51,7 @@
 
             <TextView
                 android:id="@+id/card_temperatura_title"
-                android:layout_width="290dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="0dp"
@@ -60,21 +61,32 @@
                 android:maxLines="1"
                 android:paddingStart="8dp"
                 android:text="Temperatura"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/card_temperatura_value"
-                android:layout_width="134dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="4dp"
                 android:layout_toEndOf="@id/card_temperatura_title"
-                android:gravity="center"
-                android:text="80"
+                android:layout_toStartOf="@+id/temp_degree"
+                android:gravity="right"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:id="@+id/temp_degree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="40dp"
+                android:gravity="center"
+                android:text="°C"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -110,7 +122,7 @@
 
             <TextView
                 android:id="@+id/card_battito_title"
-                android:layout_width="290dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="0dp"
@@ -120,21 +132,32 @@
                 android:maxLines="1"
                 android:paddingStart="8dp"
                 android:text="Battito Cardiaco"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/card_battito_value"
-                android:layout_width="134dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="4dp"
                 android:layout_toEndOf="@id/card_battito_title"
-                android:gravity="center"
-                android:text="80"
+                android:layout_toStartOf="@+id/batt_unit"
+                android:gravity="right"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:id="@+id/batt_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="24dp"
+                android:gravity="center"
+                android:text="bpm"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
         </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -171,7 +194,7 @@
 
             <TextView
                 android:id="@+id/card_pressione_title"
-                android:layout_width="290dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="0dp"
@@ -181,21 +204,32 @@
                 android:maxLines="1"
                 android:paddingStart="8dp"
                 android:text="Pressione"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/card_pressione_value"
-                android:layout_width="134dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="4dp"
                 android:layout_toEndOf="@id/card_pressione_title"
-                android:gravity="center"
-                android:text="80"
+                android:layout_toStartOf="@+id/press_unit"
+                android:gravity="right"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:id="@+id/press_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:text="mmHg"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -231,7 +265,7 @@
 
             <TextView
                 android:id="@+id/card_glicemia_title"
-                android:layout_width="290dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="0dp"
@@ -241,21 +275,32 @@
                 android:maxLines="1"
                 android:paddingStart="8dp"
                 android:text="Glicemia"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
                 tools:ignore="RtlSymmetry" />
 
             <TextView
                 android:id="@+id/card_glicemia_value"
-                android:layout_width="134dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="4dp"
                 android:layout_toEndOf="@id/card_glicemia_title"
-                android:gravity="center"
-                android:text="80"
+                android:layout_toStartOf="@+id/glic_unit"
+                android:gravity="right"
+                android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:id="@+id/glic_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:text="mg/dL"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -316,6 +361,25 @@
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView-->
 
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/trendBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Trend dei valori"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_glicemia"
+        app:layout_constraintVertical_bias="0.131" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_add_note_home"
         android:layout_width="wrap_content"
@@ -325,6 +389,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_add"
+        app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

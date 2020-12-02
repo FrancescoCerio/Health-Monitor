@@ -35,8 +35,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_termometro" />
-                            <entry key="sourceFile" value="$USER_HOME$/Desktop/health monitor svg/termometro.svg" />
+                            <entry key="outputName" value="ic_chart_outilne" />
+                            <entry key="sourceFile" value="$USER_HOME$/Desktop/health monitor svg/chart-outilne.svg" />
                           </map>
                         </option>
                       </PersistentState>

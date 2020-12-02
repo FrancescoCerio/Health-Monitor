@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,29 +62,15 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        /*
-        RecyclerView recyclerView = homeView.findViewById(R.id.value_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setHasFixedSize(true);
-
-        final ReportAdapter adapter = new ReportAdapter();
-        recyclerView.setAdapter(adapter);
-
-        reportViewModel = new ViewModelProvider(this,
-                ViewModelProvider
-                        .AndroidViewModelFactory
-                        .getInstance(getActivity().getApplication()))
-                .get(ReportViewModel.class);
-
-        reportViewModel.getAllReport().observe(this, new Observer<List<Report>>() {
+        Button testBtn = homeView.findViewById(R.id.trendBtn);
+        testBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(List<Report> reports) {
-                // Aggiorna automaticamente il RecyclerView
-                adapter.setReports(reports);
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), TestGraph.class);
+                startActivity(i);
+
             }
         });
-
-         */
 
         FloatingActionButton openReport = homeView.findViewById(R.id.button_add_note_home);
         openReport.setOnClickListener(new View.OnClickListener() {
@@ -95,63 +82,6 @@ public class HomeFragment extends Fragment {
         });
         return homeView;
     }
-
-    /*
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        RecyclerView recyclerView = getActivity().findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
-
-        final ReportAdapter adapter = new ReportAdapter();
-        recyclerView.setAdapter(adapter);
-
-        reportViewModel = new ViewModelProvider(this,
-                ViewModelProvider
-                        .AndroidViewModelFactory
-                        .getInstance(getActivity().getApplication()))
-                .get(ReportViewModel.class);
-
-        reportViewModel.getAllReport().observe(this, new Observer<List<Report>>() {
-            @Override
-            public void onChanged(List<Report> reports) {
-                // Aggiorna automaticamente il RecyclerView
-                adapter.setReports(reports);
-            }
-        });
-
-
-
-        // Gestisco il click di ogni elemento nella main activity in modo da poter modificare i valori inseriti
-        adapter.setOnItemClickListener(new ReportAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Report report) {
-                Intent intent = new Intent(getContext(), AddEditReportActivity.class);
-                intent.putExtra(AddEditReportActivity.EXTRA_ID, report.getId());
-                intent.putExtra(AddEditReportActivity.EXTRA_TEMPERATURE, report.getTemperature());
-                intent.putExtra(AddEditReportActivity.EXTRA_TEMPERATURE_SLIDER, report.getTPriority());
-                intent.putExtra(AddEditReportActivity.EXTRA_BATTITO, report.getCardio());
-                intent.putExtra(AddEditReportActivity.EXTRA_BATTITO_SLIDER, report.getBPriority());
-                intent.putExtra(AddEditReportActivity.EXTRA_PRESSURE, report.getPressure());
-                intent.putExtra(AddEditReportActivity.EXTRA_PRESSURE_SLIDER, report.getPPriority());
-                intent.putExtra(AddEditReportActivity.EXTRA_GLICEMIA, report.getGlicemia());
-                intent.putExtra(AddEditReportActivity.EXTRA_GLICEMIA_SLIDER, report.getGPriority());
-                intent.putExtra(AddEditReportActivity.EXTRA_DATE, report.getDate());
-                intent.putExtra(AddEditReportActivity.EXTRA_NOTE, report.getNote());
-
-                startActivityForResult(intent, EDIT_REPORT_REQUEST);
-            }
-        });
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-    }
-
-    */
 
     /**
      * Prendo i valori passati da AddReport Activity e li inserisco nel DB

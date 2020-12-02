@@ -12,6 +12,8 @@ import com.example.health_monitor.DB.Report;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -54,6 +56,14 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onChanged(List<Report> reports) {
                 // Aggiorna automaticamente il RecyclerView
+                Collections.sort(reports, new Comparator<Report>() {
+                    public int compare(Report o1, Report o2) {
+                        if (o1.getDate() == null || o2.getDate() == null)
+                            return 0;
+                        return o1.getDate().compareTo(o2.getDate());
+                    }
+                });
+
                 adapter.setReports(reports);
             }
         });
@@ -72,7 +82,7 @@ public class DiaryFragment extends Fragment {
                 intent.putExtra(AddEditReportActivity.EXTRA_PRESSURE_SLIDER, report.getPPriority());
                 intent.putExtra(AddEditReportActivity.EXTRA_GLICEMIA, report.getGlicemia());
                 intent.putExtra(AddEditReportActivity.EXTRA_GLICEMIA_SLIDER, report.getGPriority());
-                intent.putExtra(AddEditReportActivity.EXTRA_DATE, report.getDate());
+                intent.putExtra(AddEditReportActivity.EXTRA_DATE, DateConverter.fromDate(report.getDate()));
                 intent.putExtra(AddEditReportActivity.EXTRA_NOTE, report.getNote());
 
                 startActivityForResult(intent, EDIT_REPORT_REQUEST);
