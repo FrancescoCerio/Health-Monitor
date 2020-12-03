@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Grafici"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,28 +28,35 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/grafico_test"
         android:gravity="center"
+        app:selectionRequired="true"
+        app:singleSelection="true"
+        app:checkedButton="@+id/toggle_btn_temp"
         >
 
         <com.google.android.material.button.MaterialButton
             style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/toggle_btn_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_temp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
         <com.google.android.material.button.MaterialButton
             style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/toggle_btn_batt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_batt"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
         <com.google.android.material.button.MaterialButton
             style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/toggle_btn_press"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_press"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"/>
         <com.google.android.material.button.MaterialButton
             style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/toggle_btn_glic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_glic"

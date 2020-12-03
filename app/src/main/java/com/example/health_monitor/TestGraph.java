@@ -47,6 +47,11 @@ public class TestGraph extends AppCompatActivity {
     LineChart chart;
     LineData lineData;
     MaterialButtonToggleGroup toggleBtn;
+    MaterialButton tempBtn;
+    MaterialButton battBtn;
+    MaterialButton glicBtn;
+    MaterialButton pressBtn;
+
 
     @SuppressLint("ResourceType")
     @Override
@@ -57,6 +62,10 @@ public class TestGraph extends AppCompatActivity {
         dataSet = null;
         toggleBtn = findViewById(R.id.toggle_button_group);
         toggleBtn.clearOnButtonCheckedListeners();
+        tempBtn = findViewById(R.id.toggle_btn_temp);
+        glicBtn = findViewById(R.id.toggle_btn_glic);
+        battBtn = findViewById(R.id.toggle_btn_batt);
+        pressBtn = findViewById(R.id.toggle_btn_press);
 
         reportViewModel = new ViewModelProvider(this,
                 ViewModelProvider
@@ -77,18 +86,40 @@ public class TestGraph extends AppCompatActivity {
             }
         });
 
-        toggleBtn.setSingleSelection(true);
-        toggleBtn.check(1);
-        toggleBtn.addOnButtonCheckedListener(new MaterialButtonToggleGroup.OnButtonCheckedListener() {
-            @Override
-            public void onButtonChecked(MaterialButtonToggleGroup group, int checkedId, boolean isChecked) {
-                int id = group.getCheckedButtonId();
-                chart.clearValues();
-                setChartValues(id);
+        toggleBtn.check(tempBtn.getId());
 
-                Log.d("Check button id", String.valueOf(id));
+        tempBtn.addOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(MaterialButton button, boolean isChecked) {
+                chart.clearValues();
+                setChartValues(1);
             }
         });
+
+        battBtn.addOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(MaterialButton button, boolean isChecked) {
+                chart.clearValues();
+                setChartValues(2);
+            }
+        });
+
+        pressBtn.addOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(MaterialButton button, boolean isChecked) {
+                chart.clearValues();
+                setChartValues(3);
+            }
+        });
+
+        glicBtn.addOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(MaterialButton button, boolean isChecked) {
+                chart.clearValues();
+                setChartValues(4);
+            }
+        });
+
 
     }
 
@@ -137,6 +168,9 @@ public class TestGraph extends AppCompatActivity {
                 }
                 break;
 
+            default:
+                chart.setNoDataText("Nessun valore presente.");
+                break;
         }
 
         dataSet = new LineDataSet(entries, ""); // add entries to dataset
@@ -176,8 +210,6 @@ public class TestGraph extends AppCompatActivity {
         chart.invalidate(); // refresh
 
     }
-
-
 
 }
 
