@@ -2,12 +2,16 @@ package com.example.health_monitor;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.health_monitor.DB.Report;
 import com.example.health_monitor.DB.ReportDAO;
 import com.example.health_monitor.DB.ReportDB;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import androidx.lifecycle.LiveData;
 
@@ -17,8 +21,8 @@ public class ReportRepository {
     private LiveData<List<Report>> all_report;
 
     public ReportRepository(Application application){
-        ReportDB database = ReportDB.getInstance(application);
-        report_dao = database.reportDao();
+        ReportDB db = ReportDB.getInstance(application);
+        report_dao = db.reportDao();
         all_report = report_dao.getAllReport();
     }
 
@@ -34,6 +38,15 @@ public class ReportRepository {
         new UpdateReportAsyncTask(report_dao).execute(report);
     }
 
+    /*
+    public Report getReportByDate(Long date1, Long date2){
+        Log.d("Date[0]", String.valueOf(date1));
+        Log.d("Date[1]", String.valueOf(date2));
+        return report_dao.getReportByDate(date1, date2);
+    }
+
+     */
+
     public LiveData<List<Report>> getAllReport(){
         return all_report;
     }
@@ -46,6 +59,13 @@ public class ReportRepository {
         new GetReportByIdAsyncTask(report_dao).execute(current_id);
         return null;
     }
+
+
+    public Report getReportByDate(Date startDay, Date endDay) throws ExecutionException, InterruptedException {
+        return new GetReportByDateAsyncTask(report_dao).execute(startDay, endDay).get();
+    }
+
+
 
     private static class InsertReportAsyncTask extends AsyncTask<Report, Void, Void>{
         private ReportDAO reportDao;
@@ -100,6 +120,23 @@ public class ReportRepository {
         protected Void doInBackground(Integer... integers) {
             reportDao.getReportById(integers[0]);
             return null;
+        }
+    }
+
+    private static class GetReportByDateAsyncTask extends AsyncTask<Date, Void, Report>{
+        private ReportDAO reportDao;
+
+        private GetReportByDateAsyncTask(ReportDAO reportdao){
+            this.reportDao = reportdao;
+        }
+
+        @Override
+        protected Report doInBackground(Date... dates) {
+            Log.d("Date[0]", String.valueOf(dates[0]));
+            Log.d("Date[1]", String.valueOf(dates[1]));
+            Report r = reportDao.getReportByDate(dates[0], dates[1]);
+            Log.d("REPORT ASYNC", String.valueOf(r));
+            return r;
         }
     }
 }

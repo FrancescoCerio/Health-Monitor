@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginEnd="16dp"
-    android:layout_marginStart="16dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
     android:layout_marginTop="16dp"
 
     app:cardCornerRadius="20dp">
@@ -17,29 +17,36 @@
         android:paddingVertical="8dp"
         android:layout_marginHorizontal="8dp">
 
-        <ImageView
-            android:src="@drawable/ic_add"
+        <TextView
             android:id="@+id/text_view_priority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="1"
-            android:maxHeight="@dimen/cardview_compat_inset_shadow"
-            android:maxWidth="@dimen/cardview_compat_inset_shadow"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_above="@+id/text_view_description"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="10dp"
+
+            android:layout_toStartOf="@id/text_view_priority"
+
+            android:text="Report del: "
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             tools:ignore="PrivateResource" />
 
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:maxLines="1"
-            android:layout_toStartOf="@id/text_view_priority"
-            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="4dp"
+
+            android:layout_toEndOf="@+id/text_view_priority"
             android:ellipsize="end"
-            android:layout_marginVertical="@dimen/cardview_default_elevation"/>
+            android:maxLines="1"
+            android:text="Data"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5" />
 
         <TextView
             android:id="@+id/text_view_description"
@@ -47,6 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_title"
             android:text="Nessuna descrizione"
+            android:maxLength="40"
+            android:ellipsize="end"
             android:paddingVertical="@dimen/cardview_default_elevation"/>
     </RelativeLayout>
 

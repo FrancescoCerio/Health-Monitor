@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
                         .getInstance(getActivity().getApplication()))
                 .get(ReportViewModel.class);
 
-        reportViewModel.getLastReport().observe(this, new Observer<Report>() {
+        reportViewModel.getLastReport().observe(getViewLifecycleOwner(), new Observer<Report>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onChanged(Report report) {
@@ -66,57 +66,15 @@ public class HomeFragment extends Fragment {
         testBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), TestGraph.class);
+                Intent i = new Intent(getContext(), Graph.class);
                 startActivity(i);
 
             }
         });
 
-        FloatingActionButton openReport = homeView.findViewById(R.id.button_add_note_home);
-        openReport.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getContext(), AddEditReportActivity.class);
-                startActivityForResult(i, ADD_REPORT_REQUEST);
-            }
-        });
+
         return homeView;
     }
 
-    /**
-     * Prendo i valori passati da AddReport Activity e li inserisco nel DB
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == ADD_REPORT_REQUEST && resultCode == RESULT_OK){
-            int tempInt = data.getIntExtra(AddEditReportActivity.EXTRA_TEMPERATURE, 36);
-            int battInt = data.getIntExtra(AddEditReportActivity.EXTRA_BATTITO, 60);
-            int pressInt = data.getIntExtra(AddEditReportActivity.EXTRA_PRESSURE, 40);
-            int glicInt = data.getIntExtra(AddEditReportActivity.EXTRA_GLICEMIA, 60);
-            Long date = data.getLongExtra(AddEditReportActivity.EXTRA_DATE, DateConverter.fromDate(Calendar.getInstance().getTime()));
-            String note = Objects.requireNonNull(data.getStringExtra(AddEditReportActivity.EXTRA_NOTE));
-
-            float tempSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_TEMPERATURE_SLIDER, 3);
-            float battSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_BATTITO_SLIDER, 3);
-            float pressSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_PRESSURE_SLIDER, 3);
-            float glicSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_GLICEMIA_SLIDER, 3);
-            Report report;
-
-            Date dateToStore = DateConverter.toDate(date);
-
-            report = new Report(dateToStore, tempInt, glicInt, pressInt, battInt, tempSlider, pressSlider, glicSlider, battSlider, note);
-            reportViewModel.insert(report);
-
-            Toast.makeText(getContext(), "Report salvato!", Toast.LENGTH_SHORT).show();
-
-        } else {
-            Toast.makeText(getContext(), "Report non salvato", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 }

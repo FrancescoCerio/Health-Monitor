@@ -69,11 +69,10 @@
                 android:stepSize="1.0"
                 android:valueFrom="1f"
                 android:valueTo="5f"
-                app:haloColor="@color/colorAccent"
+                app:haloColor="@color/colorPrimaryDark"
                 app:haloRadius="18dp"
                 app:thumbColor="@color/colorPrimary"
                 app:thumbRadius="8dp"
-                app:trackColor="@color/colorAccent"
                 app:values="@array/initial_slider_values"
                 tools:layout_editor_absoluteX="245dp"
                 tools:layout_editor_absoluteY="61dp" />
@@ -125,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:paddingTop="10dp">
 
             <com.google.android.material.slider.RangeSlider
@@ -135,11 +134,10 @@
                 android:stepSize="1.0"
                 android:valueFrom="1f"
                 android:valueTo="5f"
-                app:haloColor="@color/colorAccent"
+                app:haloColor="@color/colorPrimaryDark"
                 app:haloRadius="18dp"
                 app:thumbColor="@color/colorPrimary"
                 app:thumbRadius="8dp"
-                app:trackColor="@color/colorAccent"
                 app:values="@array/initial_slider_values"
                 tools:layout_editor_absoluteX="245dp"
                 tools:layout_editor_absoluteY="61dp" />
@@ -200,11 +198,10 @@
                 android:stepSize="1.0"
                 android:valueFrom="1f"
                 android:valueTo="5f"
-                app:haloColor="@color/colorAccent"
+                app:haloColor="@color/colorPrimaryDark"
                 app:haloRadius="18dp"
                 app:thumbColor="@color/colorPrimary"
                 app:thumbRadius="8dp"
-                app:trackColor="@color/colorAccent"
                 app:values="@array/initial_slider_values"
                 tools:layout_editor_absoluteX="245dp"
                 tools:layout_editor_absoluteY="61dp" />
@@ -265,11 +262,10 @@
                 android:stepSize="1.0"
                 android:valueFrom="1f"
                 android:valueTo="5f"
-                app:haloColor="@color/colorAccent"
+                app:haloColor="@color/colorPrimaryDark"
                 app:haloRadius="18dp"
                 app:thumbColor="@color/colorPrimary"
                 app:thumbRadius="8dp"
-                app:trackColor="@color/colorAccent"
                 app:values="@array/initial_slider_values"
                 tools:layout_editor_absoluteX="245dp"
                 tools:layout_editor_absoluteY="61dp" />
@@ -287,7 +283,7 @@
             app:hintTextColor="@color/colorPrimaryDark"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:helperText="valore inferiore a 120"
+            app:helperText="valore minore di 120"
             app:shapeAppearance="@style/ShapeAppearance.MaterialComponents.Tooltip">
 
             <com.google.android.material.textfield.TextInputEditText

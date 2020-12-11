@@ -21,4 +21,6 @@
     <string name="label_glic">Glicemia</string>
     <string name="label_batt">Battito</string>
     <string name="label_note">Nota</string>
+    <string name="notification_hour_btn">Orario</string>
+    <string name="settings_title">La mia routine</string>
 </resources>

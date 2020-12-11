@@ -21,7 +21,15 @@
             android:name=".AddEditReportActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".TestGraph"
+            android:name=".Graph"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".InfoReportActivity"
             android:parentActivityName=".MainActivity" />
     </application>
 

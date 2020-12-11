@@ -6,17 +6,28 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="8dp">
 
-    <TextView
-        android:id="@+id/ultimo_report"
+    <LinearLayout
+        android:id="@+id/home_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|start"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="8dp"
-        android:text="Ultimo Report"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        android:textColor="@color/title_report"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/card_temperature"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp">
+        <TextView
+            android:id="@+id/last_report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="8dp"
+            android:text="Ultimo Report"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@color/title_report"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
 
 
     <com.google.android.material.card.MaterialCardView
@@ -24,13 +35,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/ultimo_report"
+        android:layout_below="@+id/home_title"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:padding="4dp"
         android:layout_marginHorizontal="6dp"
         app:cardCornerRadius="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/ultimo_report">
+        app:layout_constraintTop_toBottomOf="@+id/home_title">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -75,7 +86,8 @@
                 android:layout_toStartOf="@+id/temp_degree"
                 android:gravity="right"
                 android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textColor="#000"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4" />
 
             <TextView
                 android:id="@+id/temp_degree"
@@ -95,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/ultimo_report"
+        android:layout_below="@+id/home_title"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:padding="4dp"
@@ -146,8 +158,8 @@
                 android:layout_toStartOf="@+id/batt_unit"
                 android:gravity="right"
                 android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
+                android:textColor="#000"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"/>
             <TextView
                 android:id="@+id/batt_unit"
                 android:layout_width="wrap_content"
@@ -167,7 +179,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/ultimo_report"
+        android:layout_below="@+id/home_title"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:padding="4dp"
@@ -218,7 +230,8 @@
                 android:layout_toStartOf="@+id/press_unit"
                 android:gravity="right"
                 android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textColor="#000"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"  />
 
             <TextView
                 android:id="@+id/press_unit"
@@ -238,7 +251,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/ultimo_report"
+        android:layout_below="@+id/home_title"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
         android:padding="4dp"
@@ -289,7 +302,8 @@
                 android:layout_toStartOf="@+id/glic_unit"
                 android:gravity="right"
                 android:text=""
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textColor="#000"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"  />
 
             <TextView
                 android:id="@+id/glic_unit"
@@ -370,7 +384,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="Trend dei valori"
+        android:text="Le mie statistiche"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -380,16 +394,4 @@
         app:layout_constraintTop_toBottomOf="@+id/card_glicemia"
         app:layout_constraintVertical_bias="0.131" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button_add_note_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

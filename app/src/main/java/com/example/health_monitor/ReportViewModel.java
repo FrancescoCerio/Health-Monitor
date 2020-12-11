@@ -4,7 +4,10 @@ import android.app.Application;
 
 import com.example.health_monitor.DB.Report;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -46,4 +49,5 @@ public class ReportViewModel extends AndroidViewModel {
         return repository.getReportById(current_id);
     }
 
+    public Report getReportByDate(Date startDay, Date endDay) throws ExecutionException, InterruptedException { return repository.getReportByDate(startDay, endDay);}
 }

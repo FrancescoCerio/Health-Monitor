@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="8dp">
+
+    <LinearLayout
+        android:layout_marginTop="4dp"
+        android:id="@+id/home_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/last_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="8dp"
+            android:text="Report del"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@color/title_report"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/last_report_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingVertical="8dp"
+            android:text=""
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@color/title_report"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_temperature_last_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/home_title"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_title">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/icon_temperature_last_report"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:maxHeight="@dimen/cardview_compat_inset_shadow"
+                android:maxWidth="@dimen/cardview_compat_inset_shadow"
+                android:padding="5dp"
+                android:src="@drawable/ic_termometro"
+                tools:ignore="PrivateResource" />
+
+            <TextView
+                android:id="@+id/card_temperatura_title_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:layout_toEndOf="@id/icon_temperature_last_report"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="1"
+                android:paddingStart="8dp"
+                android:text="Temperatura"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/card_temperatura_value_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/card_temperatura_title_last_report"
+                android:layout_toStartOf="@+id/temp_degree_last_report"
+                android:gravity="right"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/temp_degree_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="40dp"
+                android:gravity="center"
+                android:text="°C"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_battito_last_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_temperature_last_report">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/icon_battito_last_report"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:maxHeight="@dimen/cardview_compat_inset_shadow"
+                android:maxWidth="@dimen/cardview_compat_inset_shadow"
+                android:padding="5dp"
+                android:src="@drawable/ic_heart_rate"
+                tools:ignore="PrivateResource" />
+
+            <TextView
+                android:id="@+id/card_battito_title_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:layout_toEndOf="@id/icon_battito_last_report"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="1"
+                android:paddingStart="8dp"
+                android:text="Battito Cardiaco"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/card_battito_value_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/card_battito_title_last_report"
+                android:layout_toStartOf="@+id/batt_unit_last_report"
+                android:gravity="right"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/batt_unit_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="24dp"
+                android:gravity="center"
+                android:text="bpm"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_pressione_last_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_battito_last_report">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/icon_pressione"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:maxHeight="@dimen/cardview_compat_inset_shadow"
+                android:maxWidth="@dimen/cardview_compat_inset_shadow"
+                android:padding="5dp"
+                android:src="@drawable/ic_pressure"
+                tools:ignore="PrivateResource" />
+
+            <TextView
+                android:id="@+id/card_pressione_title_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:layout_toEndOf="@id/icon_pressione"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="1"
+                android:paddingStart="8dp"
+                android:text="Pressione"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/card_pressione_value_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/card_pressione_title_last_report"
+                android:layout_toStartOf="@+id/press_unit_last_report"
+                android:gravity="right"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/press_unit_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:text="mmHg"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_glicemia_last_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_pressione_last_report">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/icon_glicemia_last_report"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:maxHeight="@dimen/cardview_compat_inset_shadow"
+                android:maxWidth="@dimen/cardview_compat_inset_shadow"
+                android:padding="5dp"
+                android:src="@drawable/ic_glicemia"
+                tools:ignore="PrivateResource" />
+
+            <TextView
+                android:id="@+id/card_glicemia_title_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:layout_toEndOf="@id/icon_glicemia_last_report"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="1"
+                android:paddingStart="8dp"
+                android:text="Glicemia"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/card_glicemia_value_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/card_glicemia_title_last_report"
+                android:layout_toStartOf="@+id/glic_unit_last_report"
+                android:gravity="right"
+                android:text=""
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/glic_unit_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:text="mg/dL"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/note_last_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="6dp"
+        android:layout_marginTop="16dp"
+        android:padding="4dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_glicemia_last_report">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/icon_note_last_report"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:maxHeight="@dimen/cardview_compat_inset_shadow"
+                android:maxWidth="@dimen/cardview_compat_inset_shadow"
+                android:padding="5dp"
+                android:src="@drawable/ic_note"
+                tools:ignore="PrivateResource" />
+
+            <TextView
+                android:id="@+id/card_note_title_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="0dp"
+                android:layout_toEndOf="@id/icon_note_last_report"
+                android:ellipsize="end"
+                android:gravity="start"
+                android:maxLines="1"
+                android:paddingStart="8dp"
+                android:text="Note"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/card_note_last_report"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_toEndOf="@id/card_note_title_last_report"
+                android:gravity="right"
+                android:text="Nessuna nota"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Tooltip"
+                android:textColor="#000" />
+
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editReportBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_edit"
+        app:backgroundTint="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

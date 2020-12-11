@@ -1,5 +1,7 @@
 package com.example.health_monitor.DB;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -7,6 +9,8 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 import androidx.room.Update;
 
 @Dao
@@ -29,6 +33,10 @@ public interface ReportDAO {
 
     @Query("SELECT * FROM reportdb WHERE id = :current_id")
     LiveData<Report> getReportById(int current_id);
+
+    @TypeConverters(DateConverter.class)
+    @Query("SELECT * FROM reportdb WHERE date BETWEEN :startDay AND :endDay")
+    Report getReportByDate(Date startDay, Date endDay);
 
     @Query("SELECT pressure FROM reportdb")
     int[] getAllPressureValues();

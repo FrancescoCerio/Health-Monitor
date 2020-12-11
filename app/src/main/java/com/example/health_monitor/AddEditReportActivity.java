@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.health_monitor.DB.DateConverter;
@@ -18,7 +19,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -94,6 +94,10 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
             public void onClick(View v) {
                 DialogFragment datePicker = new DatePickerFragment();
                 datePicker.setStyle(DialogFragment.STYLE_NORMAL, 0);
+
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(), 0);
+                datePickerDialog.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
@@ -191,7 +195,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
 
     private void setActionBarStyle(){
         Intent intent = getIntent();
-        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.arrow_back);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.arrow_back_black);
 
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.whiteText));
@@ -207,7 +211,6 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
 
         if(intent.hasExtra(EXTRA_ID)){
             actionBar.setTitle(Html.fromHtml("<font color=\"#212121\">" + "Modifica Report" + "</font>"));
-            actionBar.setHomeAsUpIndicator(null);
             temperatureText.setText(String.valueOf(intent.getIntExtra(EXTRA_TEMPERATURE, 36)));
             temperatureSlider.setValues(intent.getFloatExtra(EXTRA_TEMPERATURE_SLIDER, 3));
             pressureText.setText(String.valueOf(intent.getIntExtra(EXTRA_PRESSURE, 40)));
@@ -231,7 +234,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
 
     private void saveReport(){
         if(temperatureText.getText().toString().isEmpty() || pressureText.getText().toString().isEmpty() || battitoText.getText().toString().isEmpty() || glicemiaText.getText().toString().isEmpty() ){
-            Toast.makeText(this, "Inserisci i valori nei campi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Inserisci tutti i valori", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -241,14 +244,30 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         int glicemiaValue = Integer.parseInt(glicemiaText.getText().toString());
         String noteText = Objects.requireNonNull(this.noteText.getText()).toString();
 
+        if(temperatureValue < 33 || temperatureValue > 43){
+            temperatureText.setError("Inserisci un numero valido");
+            return;
+        }
+
+        if(battitoValue < 40 || battitoValue > 200){
+            battitoText.setError("Inserisci un numero valido");
+            return;
+        }
+
+        if(glicemiaValue < 60 || glicemiaValue > 110){
+            glicemiaText.setError("Inserisci un numero valido");
+            return;
+        }
+
+        if(pressioneValue > 120){
+            pressureText.setError("Inserisci un numero valido");
+            return;
+        }
+
         float tempPriority = Float.parseFloat(tSliderValue);
         float pressPriority = Float.parseFloat(pSliderValue);
         float battitoPriority = Float.parseFloat(bSliderValue);
         float glicemiaPriority = Float.parseFloat(gSliderValue);
-
-        Date date = calendar.getTime();
-        //dateLong = DateConverter.fromDate(date);
-        Log.d("DATA DA SALVARE", String.valueOf(dateLong));
 
         // Inserisco i valori nell'intent da passare alla MainActivity
         Intent data = new Intent();
@@ -260,7 +279,6 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         data.putExtra(EXTRA_BATTITO_SLIDER, battitoPriority);
         data.putExtra(EXTRA_GLICEMIA, glicemiaValue);
         data.putExtra(EXTRA_GLICEMIA_SLIDER, glicemiaPriority);
-        //data.putExtra(EXTRA_DATE, dateLong);
         data.putExtra(EXTRA_NOTE, noteText);
         data.putExtra(EXTRA_DATE, dateLong);
 
@@ -272,6 +290,4 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         setResult(RESULT_OK, data);
         finish();
     }
-
-
 }
