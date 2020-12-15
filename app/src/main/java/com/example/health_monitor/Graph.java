@@ -56,7 +56,7 @@ public class Graph extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graph);
         setActionBarStyle();
-        chart = (LineChart) findViewById(R.id.chart);
+        chart = findViewById(R.id.chart);
         dataSet = null;
         toggleBtn = findViewById(R.id.toggle_button_group);
         toggleBtn.clearOnButtonCheckedListeners();
@@ -140,7 +140,7 @@ public class Graph extends AppCompatActivity {
     void setChartValues(final int mode){
 
         final ArrayList<String> xAxisValues = new ArrayList<>();
-        DateFormat dateFormat = new SimpleDateFormat("MM'/'dd'/'yy", Locale.ITALY);
+        DateFormat dateFormat = new SimpleDateFormat("dd'/'MM'/'YY", Locale.ITALY);
 
         int dateCount = 0;
         ArrayList<Entry> entries = new ArrayList<>();

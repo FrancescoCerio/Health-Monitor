@@ -5,8 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/myColorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorBackground">#f4f4f4</item>
-        <item name="android:actionBarItemBackground">@color/whiteText</item>
+        <!--item name="android:colorBackground">#f4f4f4</item-->
     </style>
 
     <style name="AppTheme.NoActionBar">

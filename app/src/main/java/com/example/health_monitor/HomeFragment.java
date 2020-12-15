@@ -14,8 +14,10 @@ import com.example.health_monitor.DB.DateConverter;
 import com.example.health_monitor.DB.Report;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -53,11 +55,14 @@ public class HomeFragment extends Fragment {
                     TextView cardBattitoValue = homeView.findViewById(R.id.card_battito_value);
                     TextView cardGlicemiaValue = homeView.findViewById(R.id.card_glicemia_value);
                     TextView cardPressioneValue = homeView.findViewById(R.id.card_pressione_value);
+                    TextView currentDate = homeView.findViewById(R.id.report_date);
 
                     cardTemperatureValue.setText(Integer.toString(lastReport[0].getTemperature()));
                     cardBattitoValue.setText(Integer.toString(lastReport[0].getCardio()));
                     cardGlicemiaValue.setText(Integer.toString(lastReport[0].getGlicemia()));
                     cardPressioneValue.setText(Integer.toString(lastReport[0].getPressure()));
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd' 'MMMM' 'yyyy", Locale.ITALY);
+                    currentDate.setText(dateFormat.format(lastReport[0].getDate()));
                 }
             }
         });
