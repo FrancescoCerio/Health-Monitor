@@ -16,6 +16,7 @@
     <string name="pressione_id">Pressione sanguigna</string>
     <string name="glicemia_id">Glicemia</string>
     <string name="save_report">Salva</string>
+    <string name="delete_report">Elimina</string>
     <string name="label_temp">Temperatura</string>
     <string name="label_press">Pressione</string>
     <string name="label_glic">Glicemia</string>

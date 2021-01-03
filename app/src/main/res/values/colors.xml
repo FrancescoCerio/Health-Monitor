@@ -7,6 +7,8 @@
     <color name="title_report">#212121</color>
     <color name="whiteText">#f4f4f4</color>
     <color name="white">#fff</color>
+    <color name="alarm">#FF1818</color>
+
 
     <color name="inputTextField">#B53F04</color>
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import androidx.annotation.RequiresPermission;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -32,7 +33,7 @@ public interface ReportDAO {
     LiveData<Report> getLastReport();
 
     @Query("SELECT * FROM reportdb WHERE id = :current_id")
-    LiveData<Report> getReportById(int current_id);
+    Report getReportById(int current_id);
 
     @TypeConverters(DateConverter.class)
     @Query("SELECT * FROM reportdb WHERE date BETWEEN :startDay AND :endDay")

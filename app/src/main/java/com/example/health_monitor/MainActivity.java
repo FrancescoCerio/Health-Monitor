@@ -44,6 +44,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
+import static com.example.health_monitor.AddEditReportActivity.DELETE_REPORT;
+
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_REPORT_REQUEST = 1;
     public static final int EDIT_REPORT_REQUEST = 2;
@@ -173,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Prendo i valori passati da AddReport Activity e li inserisco nel DB
+     * Prendo i valori passati da AddReport Activity e chiamo le funzioni di DB
      * @param requestCode
      * @param resultCode
      * @param data
@@ -262,6 +264,26 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Report non salvato", Toast.LENGTH_SHORT).show();
         }
+
+        /*
+        if(requestCode == DELETE_REPORT){
+            int id = data.getIntExtra(AddEditReportActivity.EXTRA_ID, -1);
+            Report report = reportViewModel.getReportById(id);
+            Log.d("REPORT DATE: ", String.valueOf(report.getDate()));
+            Log.d("REPORT BATTITO: ", String.valueOf(report.getCardio()));
+            try{
+                reportViewModel.delete(reportViewModel.getReportById(id));
+            } catch (Exception e){
+                Log.d("DELETE:", "REPORT NOT DELETED");
+                e.printStackTrace();
+            }
+        }
+
+         */
+
+
+
+
     }
 
     /**

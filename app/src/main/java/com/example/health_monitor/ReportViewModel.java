@@ -45,7 +45,7 @@ public class ReportViewModel extends AndroidViewModel {
         return lastReport;
     }
 
-    public Report getReportById(int current_id){
+    public Report getReportById(int current_id) throws ExecutionException, InterruptedException {
         return repository.getReportById(current_id);
     }
 

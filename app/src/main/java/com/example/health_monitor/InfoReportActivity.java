@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -19,12 +20,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
+
+import static com.example.health_monitor.AddEditReportActivity.DELETE_REPORT;
 
 public class InfoReportActivity extends AppCompatActivity {
 
@@ -84,6 +88,7 @@ public class InfoReportActivity extends AppCompatActivity {
 
         actionBar.setHomeAsUpIndicator(R.drawable.arrow_back_white);
 
+
         ColorDrawable colorDrawable
                 = new ColorDrawable(Color.parseColor("#197ACF"));
 
@@ -134,9 +139,28 @@ public class InfoReportActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "Report aggiornato", Toast.LENGTH_SHORT).show();
 
+        }
+        if(requestCode == MainActivity.EDIT_REPORT_REQUEST && resultCode == RESULT_FIRST_USER){
+                int id = data.getIntExtra(AddEditReportActivity.EXTRA_ID, -1);
+            Report report = null;
+            try {
+                report = reportViewModel.getReportById(id);
+                Log.d("REPORT DATE: ", String.valueOf(report.getDate()));
+                Log.d("REPORT BATTITO: ", String.valueOf(report.getCardio()));
+                try{
+                    reportViewModel.delete(reportViewModel.getReportById(id));
+                } catch (Exception e){
+                    Log.d("DELETE:", "REPORT NOT DELETED");
+                    e.printStackTrace();
+                }
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+
         } else {
             Toast.makeText(getApplicationContext(), "Report non salvato!", Toast.LENGTH_SHORT).show();
         }
+
         finish();
     }
 }

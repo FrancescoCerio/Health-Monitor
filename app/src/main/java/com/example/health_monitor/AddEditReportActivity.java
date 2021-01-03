@@ -56,6 +56,8 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     public static final String EXTRA_DATE =
             "com.example.health_monitor.EXTRA_DATE";
 
+    public static final int DELETE_REPORT = -2;
+
     private TextInputEditText temperatureText;
     private TextInputEditText pressureText;
     private TextInputEditText glicemiaText;
@@ -72,6 +74,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     private String gSliderValue;
 
     private MaterialButton saveButton;
+    private MaterialButton deleteButton;
     private MaterialButton dateButton;
     private SimpleDateFormat dateFormat;
     private Date date;
@@ -92,12 +95,17 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment datePicker = new DatePickerFragment();
+                DatePickerFragment datePicker = new DatePickerFragment();
                 datePicker.setStyle(DialogFragment.STYLE_NORMAL, 0);
+                datePicker.dateLong = dateLong;
 
+                /*
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(), 0);
                 datePickerDialog.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
+                datePickerDialog.show();
+
+                 */
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
@@ -109,6 +117,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         battitoText = findViewById(R.id.battito_text);
         noteText = findViewById(R.id.noteText);
         saveButton = findViewById(R.id.save_report);
+        deleteButton = findViewById(R.id.delete_report);
 
         temperatureSlider = findViewById(R.id.tempSlider);
         pressureSlider = findViewById(R.id.pressureSlider);
@@ -161,6 +170,13 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
                 saveReport();
             }
         });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteReport();
+            }
+        });
     }
 
     private void setButtonDate(Long currentDate){
@@ -173,9 +189,8 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
             dateLong = DateConverter.fromDate(calendar.getTime());
         } else {
             currentDateString = dateFormat.format(DateConverter.toDate(currentDate));
-            Log.d("SET DATE", currentDateString);
             dateLong = currentDate;
-            Log.d("SET DATE LONG", dateLong.toString());
+            //calendar.setTime(DateConverter.toDate(currentDate));
         }
         dateButton.setText(currentDateString);
     }
@@ -223,7 +238,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
             dateLong = intent.getLongExtra(EXTRA_DATE, DateConverter.fromDate(Calendar.getInstance().getTime()));
             calendar.setTimeInMillis(dateLong);
             setButtonDate(dateLong);
-
+            deleteButton.setVisibility(View.VISIBLE);
         } else {
             actionBar.setTitle(Html.fromHtml("<font color=\"#212121\">" + "Aggiungi Report" + "</font>"));
         }
@@ -289,5 +304,15 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
 
         setResult(RESULT_OK, data);
         finish();
+    }
+
+    public void deleteReport(){
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        if (id != -1){
+            Intent deleteReport = new Intent();
+            deleteReport.putExtra(EXTRA_ID, id);
+            setResult(RESULT_FIRST_USER, deleteReport);
+            finish();
+        }
     }
 }

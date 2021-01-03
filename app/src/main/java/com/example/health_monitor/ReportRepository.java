@@ -55,9 +55,8 @@ public class ReportRepository {
         return report_dao.getLastReport();
     }
 
-    public Report getReportById(int current_id){
-        new GetReportByIdAsyncTask(report_dao).execute(current_id);
-        return null;
+    public Report getReportById(int current_id) throws ExecutionException, InterruptedException {
+        return new GetReportByIdAsyncTask(report_dao).execute(current_id).get();
     }
 
 
@@ -109,7 +108,7 @@ public class ReportRepository {
         }
     }
 
-    private static class GetReportByIdAsyncTask extends AsyncTask<Integer, Void, Void>{
+    private static class GetReportByIdAsyncTask extends AsyncTask<Integer, Void, Report>{
         private ReportDAO reportDao;
 
         private GetReportByIdAsyncTask(ReportDAO reportdao){
@@ -117,9 +116,8 @@ public class ReportRepository {
         }
 
         @Override
-        protected Void doInBackground(Integer... integers) {
-            reportDao.getReportById(integers[0]);
-            return null;
+        protected Report doInBackground(Integer... integers) {
+            return reportDao.getReportById(integers[0]);
         }
     }
 
@@ -132,11 +130,7 @@ public class ReportRepository {
 
         @Override
         protected Report doInBackground(Date... dates) {
-            Log.d("Date[0]", String.valueOf(dates[0]));
-            Log.d("Date[1]", String.valueOf(dates[1]));
-            Report r = reportDao.getReportByDate(dates[0], dates[1]);
-            Log.d("REPORT ASYNC", String.valueOf(r));
-            return r;
+            return reportDao.getReportByDate(dates[0], dates[1]);
         }
     }
 }
