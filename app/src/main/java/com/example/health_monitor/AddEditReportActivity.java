@@ -99,13 +99,6 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
                 datePicker.setStyle(DialogFragment.STYLE_NORMAL, 0);
                 datePicker.dateLong = dateLong;
 
-                /*
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(), 0);
-                datePickerDialog.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-
-                datePickerDialog.show();
-
-                 */
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });

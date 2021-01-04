@@ -203,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
             Date dateToStore = DateConverter.toDate(date);
 
             // gestisco il caso in cui il report sia già presente nella data inserita
-            Log.d("datetostore", String.valueOf(dateToStore));
             @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String dateString = dateFormat.format(dateToStore);
 
@@ -211,27 +210,13 @@ public class MainActivity extends AppCompatActivity {
             try {
                 startDay = getStartOfDayInMillis(dateString);
                 endDay = getEndOfDayInMillis(dateString);
-                /*
-                Log.d("startday", DateConverter.toDate(startDay).toString());
-                Log.d("endday", DateConverter.toDate(endDay).toString());
-
-                Log.d("startday", String.valueOf(startDay));
-                Log.d("endday", String.valueOf(endDay));
-
-                 */
-
 
                 Date startDayDate = DateConverter.toDate(startDay);
                 Date endDayDate = DateConverter.toDate(endDay);
-                Log.d("startday", String.valueOf(startDayDate));
-                Log.d("endday", String.valueOf(endDayDate));
 
                 Report reportByDate = reportViewModel.getReportByDate(startDayDate, endDayDate);
 
-                Log.d("reportByDate", String.valueOf(reportByDate));
-
                 if(reportByDate == null) {
-                    Log.d("REPORTDATE", "null");
                     report = new Report(dateToStore, tempInt, glicInt, pressInt, battInt, tempSlider, pressSlider, glicSlider, battSlider, note);
                     reportViewModel.insert(report);
                     Toast.makeText(getApplicationContext(), "Report salvato!", Toast.LENGTH_SHORT).show();
@@ -241,16 +226,15 @@ public class MainActivity extends AppCompatActivity {
                     int avgTemp, avgBatt, avgGlic, avgPress;
                     float avgTempSlider, avgBattSlider, avgPressSlider, avgGlicSlider;
 
-                    //TODO: portare i valori da int a float
                     avgTemp = (reportByDate.getTemperature() + tempInt) / 2;
                     avgBatt = (reportByDate.getCardio() + battInt) / 2;
                     avgPress = (reportByDate.getPressure() + pressInt) / 2;
                     avgGlic = (reportByDate.getGlicemia() + glicInt) / 2;
 
-                    avgTempSlider = (reportByDate.getTPriority() + tempSlider) / 2;
-                    avgBattSlider = (reportByDate.getBPriority() + battSlider) / 2;
-                    avgPressSlider = (reportByDate.getPPriority() + pressSlider) / 2;
-                    avgGlicSlider = (reportByDate.getGPriority() + glicSlider) / 2;
+                    avgTempSlider = Math.round((reportByDate.getTPriority() + tempSlider) / 2);
+                    avgBattSlider = Math.round((reportByDate.getBPriority() + battSlider) / 2);
+                    avgPressSlider = Math.round((reportByDate.getPPriority() + pressSlider) / 2);
+                    avgGlicSlider = Math.round((reportByDate.getGPriority() + glicSlider) / 2);
 
                     Report updatedReport = new Report (dateToStore, avgTemp, avgGlic, avgPress, avgBatt, avgTempSlider, avgPressSlider, avgGlicSlider, avgBattSlider, "");
                     updatedReport.setId(reportByDate.getId());
@@ -264,25 +248,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Report non salvato", Toast.LENGTH_SHORT).show();
         }
-
-        /*
-        if(requestCode == DELETE_REPORT){
-            int id = data.getIntExtra(AddEditReportActivity.EXTRA_ID, -1);
-            Report report = reportViewModel.getReportById(id);
-            Log.d("REPORT DATE: ", String.valueOf(report.getDate()));
-            Log.d("REPORT BATTITO: ", String.valueOf(report.getCardio()));
-            try{
-                reportViewModel.delete(reportViewModel.getReportById(id));
-            } catch (Exception e){
-                Log.d("DELETE:", "REPORT NOT DELETED");
-                e.printStackTrace();
-            }
-        }
-
-         */
-
-
-
 
     }
 

@@ -119,6 +119,7 @@ public class InfoReportActivity extends AppCompatActivity {
                 return;
             }
 
+            // Prendo i valori correnti passati da AddReportActivity
             int tempInt = data.getIntExtra(AddEditReportActivity.EXTRA_TEMPERATURE, 36);
             int battInt = data.getIntExtra(AddEditReportActivity.EXTRA_BATTITO, 60);
             int pressInt = data.getIntExtra(AddEditReportActivity.EXTRA_PRESSURE, 40);
@@ -130,17 +131,43 @@ public class InfoReportActivity extends AppCompatActivity {
             float battSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_BATTITO_SLIDER, 3);
             float pressSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_PRESSURE_SLIDER, 3);
             float glicSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_GLICEMIA_SLIDER, 3);
-            Report report;
 
-            Date dateToStore = DateConverter.toDate(date);
-            report = new Report(dateToStore, tempInt, glicInt, pressInt, battInt, tempSlider, pressSlider, glicSlider, battSlider, note);
-            report.setId(id);
-            reportViewModel.update(report);
+            // Effettuo la modifica dei parametri in DB con una media dei valori attuali
+            try {
+                Report toUpdate = reportViewModel.getReportById(id);
+                int avgTemp, avgBatt, avgGlic, avgPress;
+                float avgTempSlider, avgBattSlider, avgPressSlider, avgGlicSlider;
 
-            Toast.makeText(getApplicationContext(), "Report aggiornato", Toast.LENGTH_SHORT).show();
+                avgTemp = (toUpdate.getTemperature() + tempInt) / 2;
+                avgBatt = (toUpdate.getCardio() + battInt) / 2;
+                avgPress = (toUpdate.getPressure() + pressInt) / 2;
+                avgGlic = (toUpdate.getGlicemia() + glicInt) / 2;
 
-        }
-        if(requestCode == MainActivity.EDIT_REPORT_REQUEST && resultCode == RESULT_FIRST_USER){
+                avgTempSlider = Math.round((toUpdate.getTPriority() + tempSlider) / 2);
+                avgBattSlider = Math.round((toUpdate.getBPriority() + battSlider) / 2);
+                avgPressSlider = Math.round((toUpdate.getPPriority() + pressSlider) / 2);
+                avgGlicSlider = Math.round((toUpdate.getGPriority() + glicSlider) / 2);
+
+                String noteToStore;
+
+                if(!note.isEmpty()){
+                    noteToStore = note;
+                } else {
+                    noteToStore = toUpdate.getNote();
+                }
+
+                Date dateToStore = DateConverter.toDate(date);
+                Report updatedReport = new Report (dateToStore, avgTemp, avgGlic, avgPress, avgBatt, avgTempSlider, avgPressSlider, avgGlicSlider, avgBattSlider, noteToStore);
+                updatedReport.setId(id);
+                reportViewModel.update(updatedReport);
+
+                Toast.makeText(getApplicationContext(), "Report aggiornato", Toast.LENGTH_SHORT).show();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+        } else if(requestCode == MainActivity.EDIT_REPORT_REQUEST && resultCode == RESULT_FIRST_USER){
                 int id = data.getIntExtra(AddEditReportActivity.EXTRA_ID, -1);
             Report report = null;
             try {

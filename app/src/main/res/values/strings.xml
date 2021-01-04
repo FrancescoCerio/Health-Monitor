@@ -22,6 +22,16 @@
     <string name="label_glic">Glicemia</string>
     <string name="label_batt">Battito</string>
     <string name="label_note">Nota</string>
+
+    <!-- Settings Page Strings -->
     <string name="notification_hour_btn">Orario</string>
     <string name="settings_title">La mia routine</string>
+    <string name="settings_description">Health Monitor ti permette di impostare un orario in cui ricevere una notifica durante la giornata per ricordarti di aggiungere un Report.</string>
+    <string name="time_enable_text">Notifiche</string>
+
+    <string name="value_controller_title">Monitoraggio dei valori</string>
+    <string name="value_controller_description">Health Monitor ti permette di monitorare un valore e impostare una soglia massima che può raggiungere. Nel caso in cui dovesse essere superata, verrai avvisato.</string>
+    <string name="control_enable_text">Monitoraggio valori</string>
+    <string name="value_to_monitor">Valore da monitorare</string>
+    <string name="importance">Priorità</string>
 </resources>
