@@ -3,4 +3,11 @@
     <array name="initial_slider_values">
         <item>3.0</item>
     </array>
+
+    <string-array name="monitor_value_array">
+        <item>@string/label_batt</item>
+        <item>@string/label_temp</item>
+        <item>@string/label_glic</item>
+        <item>@string/label_press</item>
+    </string-array>
 </resources>

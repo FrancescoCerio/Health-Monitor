@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.cancel(AlarmBroadcastReceiver.NOTIFICATION_ID);
+
         setActionBarStyle(true);
         reportViewModel = new ViewModelProvider(this,
                 ViewModelProvider
@@ -79,36 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(i, ADD_REPORT_REQUEST);
             }
         });
-    }
-
-    //TODO: CONTROLLARE PER BENE
-    private void createNotification(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-        NotificationChannel channel = new NotificationChannel(
-                CHANNEL_NOTIFICATION,
-                "Report giornaliero",
-                NotificationManager.IMPORTANCE_DEFAULT
-        );
-
-        channel.setDescription("Questo è un reminder giornaliero");
-
-        NotificationManager manager = getSystemService(NotificationManager.class);
-        manager.createNotificationChannel(channel);
-
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_NOTIFICATION)
-                .setSmallIcon(R.drawable.ic_icons8_health)
-                .setContentTitle("UÈ! SCEMO DI MERDA")
-                .setContentText("Suca")
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText("Che cazzo ti ridi"))
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .build();
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-
-// notificationId is a unique int for each notification that you must define
-        notificationManager.notify(1, notification);
-        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =

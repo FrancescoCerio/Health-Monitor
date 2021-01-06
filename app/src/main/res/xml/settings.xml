@@ -1,20 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:key="rootKey"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditTextPreference
-        app:key="Text"
-        app:title="Modifica il testo"/>
-    
+    <PreferenceCategory
+        app:title="@string/settings_title"/>
+    <Preference
+        app:title="@string/settings_description"/>
+
     <SwitchPreferenceCompat
         app:key="notifications"
-        app:title="Enable message notifications" />
+        android:disableDependentsState="false"
+        app:title="Abilita notifiche" />
 
     <Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>
+        app:key="settingHour"
+        android:dependency="notifications"
+        app:title="Orario"
+        />
 
+    <PreferenceCategory
+        app:title="@string/value_controller_title"/>
+    <Preference
+        app:title="@string/value_controller_description"/>
+
+    <SwitchPreferenceCompat
+        app:key="valueMonitor"
+        app:title="Attiva monitoraggio valore" />
+
+    <DropDownPreference
+        app:key="valueToMonitor"
+        android:title="Valore"
+        android:dependency="valueMonitor"
+        app:entryValues="@array/monitor_value_array"
+        />
+
+    <EditTextPreference
+        app:key="valueToMonitorNumber"
+        android:title="Soglia massima"
+        android:defaultValue="60"
+        android:dependency="valueMonitor"
+        />
+
+    <SeekBarPreference
+        app:key="sliderPreference"
+        android:defaultValue="3"
+        app:min="1"
+        android:max="5"
+        app:showSeekBarValue="true"
+        android:dependency="valueMonitor"
+        />
 
 
 </androidx.preference.PreferenceScreen>

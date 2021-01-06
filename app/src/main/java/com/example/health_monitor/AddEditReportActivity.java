@@ -2,6 +2,7 @@ package com.example.health_monitor;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -89,6 +90,9 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
+        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.cancel(AlarmBroadcastReceiver.NOTIFICATION_ID);
 
         // Imposto l'ora corrente nel pulsante della data
         setButtonDate(null);
@@ -296,6 +300,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         }
 
         setResult(RESULT_OK, data);
+
         finish();
     }
 
