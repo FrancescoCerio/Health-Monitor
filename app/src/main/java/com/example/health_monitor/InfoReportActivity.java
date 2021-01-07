@@ -76,6 +76,11 @@ public class InfoReportActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     private void setActionBarStyle(){
         ActionBar actionBar;
         actionBar = getSupportActionBar();
@@ -107,73 +112,8 @@ public class InfoReportActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == MainActivity.EDIT_REPORT_REQUEST && resultCode == RESULT_OK) {
-            int id = data.getIntExtra(AddEditReportActivity.EXTRA_ID, -1);
-            if(id == -1){
-                Toast.makeText(getApplicationContext(), "Report non aggiornato", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // Prendo i valori correnti passati da AddReportActivity
-            int tempInt = data.getIntExtra(AddEditReportActivity.EXTRA_TEMPERATURE, 36);
-            int battInt = data.getIntExtra(AddEditReportActivity.EXTRA_BATTITO, 60);
-            int pressInt = data.getIntExtra(AddEditReportActivity.EXTRA_PRESSURE, 40);
-            int glicInt = data.getIntExtra(AddEditReportActivity.EXTRA_GLICEMIA, 60);
-            Long date = data.getLongExtra(AddEditReportActivity.EXTRA_DATE, DateConverter.fromDate(Calendar.getInstance().getTime()));
-            String note = Objects.requireNonNull(data.getStringExtra(AddEditReportActivity.EXTRA_NOTE));
-
-            float tempSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_TEMPERATURE_SLIDER, 3);
-            float battSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_BATTITO_SLIDER, 3);
-            float pressSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_PRESSURE_SLIDER, 3);
-            float glicSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_GLICEMIA_SLIDER, 3);
-
-            // Effettuo la modifica dei parametri in DB con una media dei valori attuali
-            try {
-                Report toUpdate = reportViewModel.getReportById(id);
-                int avgTemp, avgBatt, avgGlic, avgPress;
-                float avgTempSlider, avgBattSlider, avgPressSlider, avgGlicSlider;
-
-                avgTemp = (toUpdate.getTemperature() + tempInt) / 2;
-                avgBatt = (toUpdate.getCardio() + battInt) / 2;
-                avgPress = (toUpdate.getPressure() + pressInt) / 2;
-                avgGlic = (toUpdate.getGlicemia() + glicInt) / 2;
-
-                avgTempSlider = Math.round((toUpdate.getTPriority() + tempSlider) / 2);
-                avgBattSlider = Math.round((toUpdate.getBPriority() + battSlider) / 2);
-                avgPressSlider = Math.round((toUpdate.getPPriority() + pressSlider) / 2);
-                avgGlicSlider = Math.round((toUpdate.getGPriority() + glicSlider) / 2);
-
-                String noteToStore;
-
-                if(!note.isEmpty()){
-                    noteToStore = note;
-                } else {
-                    noteToStore = toUpdate.getNote();
-                }
-
-                Date dateToStore = DateConverter.toDate(date);
-                Report updatedReport = new Report (dateToStore, avgTemp, avgGlic, avgPress, avgBatt, avgTempSlider, avgPressSlider, avgGlicSlider, avgBattSlider, noteToStore);
-                updatedReport.setId(id);
-                reportViewModel.update(updatedReport);
-
-                Toast.makeText(getApplicationContext(), "Report aggiornato", Toast.LENGTH_SHORT).show();
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
-        } else
-            if(requestCode == MainActivity.EDIT_REPORT_REQUEST && resultCode == RESULT_FIRST_USER){
-                int id = data.getIntExtra(AddEditReportActivity.EXTRA_ID, -1);
-                try{
-                    reportViewModel.delete(reportViewModel.getReportById(id));
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-
-            } else {
-                Toast.makeText(getApplicationContext(), "Report non salvato!", Toast.LENGTH_SHORT).show();
-            }
         finish();
     }
+
+
 }

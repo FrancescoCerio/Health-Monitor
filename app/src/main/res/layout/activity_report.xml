@@ -332,7 +332,28 @@
 
 
         </com.google.android.material.textfield.TextInputLayout>
+
+
     </RelativeLayout>
+
+    <!-- Save Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        style="@style/Widget.MaterialComponents.Button"
+        app:cornerRadius="20dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="8dp"
+        android:text="@string/save_report"
+        android:textSize="18sp"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noteLayout" />
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttons_constraint"
@@ -340,38 +361,44 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/noteLayout">
-        <!-- Save Button -->
 
-        <!-- Delete Button -->
-
+        <!-- Update Button -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/save_report"
+            android:id="@+id/update_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/save_report"
-            android:textSize="18sp"
             android:paddingHorizontal="24dp"
             android:paddingVertical="8dp"
+            style="@style/Widget.MaterialComponents.Button"
+            app:cornerRadius="20dp"
+            android:text="@string/update_report"
+            android:textSize="18sp"
+            android:layout_marginStart="8dp"
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintStart_toEndOf="@+id/delete_report"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
+        <!-- Delete Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:text="@string/delete_report"
-            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginStart="60dp"
             android:paddingHorizontal="24dp"
             android:paddingVertical="8dp"
+            android:text="@string/delete_report"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
-            android:visibility="gone"
+            style="@style/Widget.MaterialComponents.Button"
+            app:cornerRadius="20dp"
             app:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -38,6 +38,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
@@ -92,9 +93,12 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
 
     private MaterialButton saveButton;
     private MaterialButton deleteButton;
+    private MaterialButton updateButton;
     private MaterialButton dateButton;
     private SimpleDateFormat dateFormat;
     private Long dateLong;
+
+    private ConstraintLayout buttons_constraint;
 
     private Calendar calendar = Calendar.getInstance();
 
@@ -138,6 +142,8 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         noteText = findViewById(R.id.noteText);
         saveButton = findViewById(R.id.save_report);
         deleteButton = findViewById(R.id.delete_report);
+        updateButton = findViewById(R.id.update_report);
+        buttons_constraint = findViewById(R.id.buttons_constraint);
 
         temperatureSlider = findViewById(R.id.tempSlider);
         pressureSlider = findViewById(R.id.pressureSlider);
@@ -207,6 +213,25 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
                         .setNegativeButton(android.R.string.no, null).show();
             }
         });
+
+        updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateReport();
+            }
+        });
+
+    }
+
+
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(AddEditReportActivity.this, MainActivity.class));
+        finish();
+
     }
 
     private void setButtonDate(Long currentDate){
@@ -266,8 +291,12 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
             dateLong = intent.getLongExtra(EXTRA_DATE, DateConverter.fromDate(Calendar.getInstance().getTime()));
             calendar.setTimeInMillis(dateLong);
             setButtonDate(dateLong);
-            deleteButton.setVisibility(View.VISIBLE);
+            saveButton.setVisibility(View.GONE);
+            buttons_constraint.setVisibility(View.VISIBLE);
+            //deleteButton.setVisibility(View.VISIBLE);
         } else {
+            saveButton.setVisibility(View.VISIBLE);
+            buttons_constraint.setVisibility(View.GONE);
             actionBar.setTitle(Html.fromHtml("<font color=\"#0D3E69\">" + "Aggiungi Report" + "</font>"));
         }
     }
@@ -311,31 +340,6 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         float pressPriority = Float.parseFloat(pSliderValue);
         float battitoPriority = Float.parseFloat(bSliderValue);
         float glicemiaPriority = Float.parseFloat(gSliderValue);
-
-        // Inserisco i valori nell'intent da passare alla MainActivity
-        /*
-        Intent data = new Intent();
-        data.putExtra(EXTRA_TEMPERATURE, temperatureValue);
-        data.putExtra(EXTRA_TEMPERATURE_SLIDER, tempPriority);
-        data.putExtra(EXTRA_PRESSURE, pressioneValue);
-        data.putExtra(EXTRA_PRESSURE_SLIDER, pressPriority);
-        data.putExtra(EXTRA_BATTITO, battitoValue);
-        data.putExtra(EXTRA_BATTITO_SLIDER, battitoPriority);
-        data.putExtra(EXTRA_GLICEMIA, glicemiaValue);
-        data.putExtra(EXTRA_GLICEMIA_SLIDER, glicemiaPriority);
-        data.putExtra(EXTRA_NOTE, noteText);
-        data.putExtra(EXTRA_DATE, dateLong);
-
-        int id = getIntent().getIntExtra(EXTRA_ID, -1);
-        if (id != -1) {
-            data.putExtra(EXTRA_ID, id);
-        }
-
-        setResult(RESULT_OK, data);
-
-        finish();
-
-         */
 
         Report report;
         long startDay;
@@ -458,6 +462,72 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         mNotificationManager.notify(AVG_NOTIFICATION_ID, mBuilder.build());
     }
 
+    private void updateReport(){
+        if (temperatureText.getText().toString().isEmpty() || pressureText.getText().toString().isEmpty() || battitoText.getText().toString().isEmpty() || glicemiaText.getText().toString().isEmpty()) {
+            Toast.makeText(this, "Inserisci tutti i valori", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int id = getIntent().getIntExtra(AddEditReportActivity.EXTRA_ID, -1);
+        if(id == -1){
+            Toast.makeText(getApplicationContext(), "Report non aggiornato", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int temperatureValue = Integer.parseInt(temperatureText.getText().toString());
+        int pressioneValue = Integer.parseInt(pressureText.getText().toString());
+        int battitoValue = Integer.parseInt(battitoText.getText().toString());
+        int glicemiaValue = Integer.parseInt(glicemiaText.getText().toString());
+        String noteText = Objects.requireNonNull(this.noteText.getText()).toString();
+
+        if (temperatureValue < 33 || temperatureValue > 43) {
+            temperatureText.setError("Inserisci un numero valido");
+            return;
+        }
+
+        if (battitoValue < 40 || battitoValue > 200) {
+            battitoText.setError("Inserisci un numero valido");
+            return;
+        }
+
+        if (glicemiaValue < 60 || glicemiaValue > 110) {
+            glicemiaText.setError("Inserisci un numero valido");
+            return;
+        }
+
+        if (pressioneValue > 120) {
+            pressureText.setError("Inserisci un numero valido");
+            return;
+        }
+
+        float tempPriority = Float.parseFloat(tSliderValue);
+        float pressPriority = Float.parseFloat(pSliderValue);
+        float battitoPriority = Float.parseFloat(bSliderValue);
+        float glicemiaPriority = Float.parseFloat(gSliderValue);
+        // Effettuo la modifica dei parametri in DB con una media dei valori attuali
+        try {
+            Report toUpdate = reportViewModel.getReportById(id);
+
+            String noteToStore;
+
+            if(!noteText.isEmpty()){
+                noteToStore = noteText;
+            } else {
+                noteToStore = toUpdate.getNote();
+            }
+
+            Date dateToStore = DateConverter.toDate(dateLong);
+            Report updatedReport = new Report (dateToStore, temperatureValue, glicemiaValue, pressioneValue, battitoValue, tempPriority, pressPriority, glicemiaPriority, battitoPriority, noteToStore);
+            updatedReport.setId(id);
+            reportViewModel.update(updatedReport);
+
+            Toast.makeText(getApplicationContext(), "Report aggiornato", Toast.LENGTH_SHORT).show();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        finish();
+    }
+
 
 
     /**
@@ -486,10 +556,20 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     public void deleteReport(){
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if (id != -1){
+            try{
+                reportViewModel.delete(reportViewModel.getReportById(id));
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            /*
             Intent deleteReport = new Intent();
             deleteReport.putExtra(EXTRA_ID, id);
             setResult(RESULT_FIRST_USER, deleteReport);
-            finish();
+             */
         }
+        else {
+            Toast.makeText(getApplicationContext(), "Report non salvato!", Toast.LENGTH_SHORT).show();
+        }
+        finish();
     }
 }

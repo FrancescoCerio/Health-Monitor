@@ -26,7 +26,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         CharSequence name = context.getResources().getString(R.string.app_name);
         NotificationCompat.Builder mBuilder;
 
-        Intent notificationIntent = new Intent(context, MainActivity.class);
+        Intent notificationIntent = new Intent(context, AddEditReportActivity.class);
         //PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT);
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
