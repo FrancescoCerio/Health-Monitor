@@ -91,8 +91,4 @@ public class DiaryFragment extends Fragment {
 
         return diaryView;
     }
-
-
-
-
 }

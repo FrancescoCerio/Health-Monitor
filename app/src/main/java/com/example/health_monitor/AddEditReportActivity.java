@@ -2,7 +2,11 @@ package com.example.health_monitor;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,26 +16,32 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.DatePicker;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.health_monitor.DB.DateConverter;
+import com.example.health_monitor.DB.Report;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.slider.RangeSlider;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 public class AddEditReportActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     public static final String EXTRA_ID =
@@ -57,6 +67,12 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     public static final String EXTRA_DATE =
             "com.example.health_monitor.EXTRA_DATE";
 
+    public static final String AVG_TOO_HIGH_CHANNEL = "AVG_TOO_HIGH_CHANNEL";
+    public static final int AVG_NOTIFICATION_ID = 2;
+    public static Boolean isMonitoringActive = false;
+    public static String valueToMonitorInBackground;
+    public static int valueToMonitorNumberInBackground;
+
     public static final int DELETE_REPORT = -2;
 
     private TextInputEditText temperatureText;
@@ -78,18 +94,25 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     private MaterialButton deleteButton;
     private MaterialButton dateButton;
     private SimpleDateFormat dateFormat;
-    private Date date;
     private Long dateLong;
 
     private Calendar calendar = Calendar.getInstance();
 
     private TextInputEditText noteText;
 
+    private ReportViewModel reportViewModel;
+
     @SuppressLint("SimpleDateFormat")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
+        reportViewModel = new ViewModelProvider(this,
+                ViewModelProvider
+                        .AndroidViewModelFactory
+                        .getInstance(this.getApplication()))
+                .get(ReportViewModel.class);
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(AlarmBroadcastReceiver.NOTIFICATION_ID);
@@ -171,7 +194,17 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteReport();
+                new AlertDialog.Builder(AddEditReportActivity.this)
+                        .setTitle("Eliminare il Report?")
+                        .setMessage("Sei sicuro di voler continuare? Tutti i valori andranno persi.")
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                deleteReport();
+                                Toast.makeText(AddEditReportActivity.this, "Report eliminato", Toast.LENGTH_SHORT).show();
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
             }
         });
     }
@@ -201,7 +234,6 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         dateLong = DateConverter.fromDate(calendar.getTime());
         setButtonDate(dateLong);
-
         view.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
     }
 
@@ -218,11 +250,10 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         ColorDrawable colorDrawable
                 = new ColorDrawable(Color.parseColor("#f4f4f4"));
 
-        // Set BackgroundDrawable
         actionBar.setBackgroundDrawable(colorDrawable);
 
         if(intent.hasExtra(EXTRA_ID)){
-            actionBar.setTitle(Html.fromHtml("<font color=\"#212121\">" + "Modifica Report" + "</font>"));
+            actionBar.setTitle(Html.fromHtml("<font color=\"#0D3E69\">" + "Modifica Report" + "</font>"));
             temperatureText.setText(String.valueOf(intent.getIntExtra(EXTRA_TEMPERATURE, 36)));
             temperatureSlider.setValues(intent.getFloatExtra(EXTRA_TEMPERATURE_SLIDER, 3));
             pressureText.setText(String.valueOf(intent.getIntExtra(EXTRA_PRESSURE, 40)));
@@ -237,15 +268,15 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
             setButtonDate(dateLong);
             deleteButton.setVisibility(View.VISIBLE);
         } else {
-            actionBar.setTitle(Html.fromHtml("<font color=\"#212121\">" + "Aggiungi Report" + "</font>"));
+            actionBar.setTitle(Html.fromHtml("<font color=\"#0D3E69\">" + "Aggiungi Report" + "</font>"));
         }
-
     }
 
-
-
-    private void saveReport(){
-        if(temperatureText.getText().toString().isEmpty() || pressureText.getText().toString().isEmpty() || battitoText.getText().toString().isEmpty() || glicemiaText.getText().toString().isEmpty() ){
+    /**
+     * Salvo il report nel database
+     */
+    private void saveReport() {
+        if (temperatureText.getText().toString().isEmpty() || pressureText.getText().toString().isEmpty() || battitoText.getText().toString().isEmpty() || glicemiaText.getText().toString().isEmpty()) {
             Toast.makeText(this, "Inserisci tutti i valori", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -256,22 +287,22 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         int glicemiaValue = Integer.parseInt(glicemiaText.getText().toString());
         String noteText = Objects.requireNonNull(this.noteText.getText()).toString();
 
-        if(temperatureValue < 33 || temperatureValue > 43){
+        if (temperatureValue < 33 || temperatureValue > 43) {
             temperatureText.setError("Inserisci un numero valido");
             return;
         }
 
-        if(battitoValue < 40 || battitoValue > 200){
+        if (battitoValue < 40 || battitoValue > 200) {
             battitoText.setError("Inserisci un numero valido");
             return;
         }
 
-        if(glicemiaValue < 60 || glicemiaValue > 110){
+        if (glicemiaValue < 60 || glicemiaValue > 110) {
             glicemiaText.setError("Inserisci un numero valido");
             return;
         }
 
-        if(pressioneValue > 120){
+        if (pressioneValue > 120) {
             pressureText.setError("Inserisci un numero valido");
             return;
         }
@@ -282,6 +313,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         float glicemiaPriority = Float.parseFloat(gSliderValue);
 
         // Inserisco i valori nell'intent da passare alla MainActivity
+        /*
         Intent data = new Intent();
         data.putExtra(EXTRA_TEMPERATURE, temperatureValue);
         data.putExtra(EXTRA_TEMPERATURE_SLIDER, tempPriority);
@@ -295,13 +327,160 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         data.putExtra(EXTRA_DATE, dateLong);
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
-        if(id != -1){
+        if (id != -1) {
             data.putExtra(EXTRA_ID, id);
         }
 
         setResult(RESULT_OK, data);
 
         finish();
+
+         */
+
+        Report report;
+        long startDay;
+        long endDay;
+
+        Date dateToStore = DateConverter.toDate(dateLong);
+
+        // gestisco il caso in cui il report sia già presente nella data inserita
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = dateFormat.format(dateToStore);
+
+
+        try {
+            startDay = getStartOfDayInMillis(dateString);
+            endDay = getEndOfDayInMillis(dateString);
+
+            Date startDayDate = DateConverter.toDate(startDay);
+            Date endDayDate = DateConverter.toDate(endDay);
+
+            Report reportByDate = reportViewModel.getReportByDate(startDayDate, endDayDate);
+
+            if (reportByDate == null) {
+                report = new Report(dateToStore, temperatureValue, glicemiaValue, pressioneValue, battitoValue, tempPriority, pressPriority, glicemiaPriority, battitoPriority, noteText);
+                reportViewModel.insert(report);
+                Toast.makeText(getApplicationContext(), "Report salvato!", Toast.LENGTH_SHORT).show();
+            } else {
+                // Modifico il report in quella data facendo una media tra i valori
+                Log.d("REPORTDATE", "not null");
+                int avgTemp, avgBatt, avgGlic, avgPress;
+                float avgTempSlider, avgBattSlider, avgPressSlider, avgGlicSlider;
+
+                avgTemp = (reportByDate.getTemperature() + temperatureValue) / 2;
+                avgBatt = (reportByDate.getCardio() + battitoValue) / 2;
+                avgPress = (reportByDate.getPressure() + pressioneValue) / 2;
+                avgGlic = (reportByDate.getGlicemia() + glicemiaValue) / 2;
+
+                avgTempSlider = Math.round((reportByDate.getTPriority() + tempPriority) / 2);
+                avgBattSlider = Math.round((reportByDate.getBPriority() + battitoPriority) / 2);
+                avgPressSlider = Math.round((reportByDate.getPPriority() + pressPriority) / 2);
+                avgGlicSlider = Math.round((reportByDate.getGPriority() + glicemiaPriority) / 2);
+
+                Report updatedReport = new Report(dateToStore, avgTemp, avgGlic, avgPress, avgBatt, avgTempSlider, avgPressSlider, avgGlicSlider, avgBattSlider, "");
+                updatedReport.setId(reportByDate.getId());
+                reportViewModel.update(updatedReport);
+                Toast.makeText(getApplicationContext(), "Report giornaliero aggiornato!", Toast.LENGTH_SHORT).show();
+            }
+        } catch (ParseException | InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
+        // Attivo il monitoraggio del valore inserito nelle impostazioni
+        if (isMonitoringActive) {
+            try {
+                checkAvgValue();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        finish();
+    }
+
+    private void checkAvgValue() throws ExecutionException, InterruptedException {
+        ArrayList<Double> avgValues = reportViewModel.getAvgValues();
+        switch(valueToMonitorInBackground){
+            case "Temperatura":
+                Double temp = avgValues.get(1);
+                if(temp > valueToMonitorNumberInBackground) {
+                    notifyAvgOverThreshold();
+                }
+                break;
+
+            case "Battito":
+                Double batt = avgValues.get(2);
+                if(batt > valueToMonitorNumberInBackground){
+                    notifyAvgOverThreshold();
+                }
+                break;
+
+            case "Pressione":
+                Double press = avgValues.get(3);
+                if(press > valueToMonitorNumberInBackground){
+                    notifyAvgOverThreshold();
+                }
+                break;
+
+            case "Glicemia":
+                Double glic = avgValues.get(4);
+                if(glic > valueToMonitorNumberInBackground){
+                    notifyAvgOverThreshold();
+                }
+                break;
+
+            default:
+                break;
+
+        }
+    }
+
+    private void notifyAvgOverThreshold(){
+        CharSequence name = getResources().getString(R.string.app_name);
+
+        NotificationCompat.Builder mBuilder;
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent rescheduleIntent = new Intent(this, Graph.class);
+        rescheduleIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent showAvgValuesIntent = PendingIntent.getActivity(this, 0, rescheduleIntent, PendingIntent.FLAG_ONE_SHOT);
+
+        NotificationChannel mChannel = new NotificationChannel(AVG_TOO_HIGH_CHANNEL, name, NotificationManager.IMPORTANCE_HIGH);
+        mNotificationManager.createNotificationChannel(mChannel);
+        mBuilder = new NotificationCompat.Builder(this, AVG_TOO_HIGH_CHANNEL)
+                .setSmallIcon(R.drawable.ic_icons8_health)
+                .setLights(Color.RED, 300, 300)
+                .setChannelId(AVG_TOO_HIGH_CHANNEL)
+                .setContentTitle("Ops... qualcosa non va")
+                .setContentText("Il valore medio " + valueToMonitorInBackground + " ha superato la soglia impostata di " + valueToMonitorNumberInBackground)
+                .setContentIntent(showAvgValuesIntent)
+                .setAutoCancel(true);
+
+        mNotificationManager.notify(AVG_NOTIFICATION_ID, mBuilder.build());
+    }
+
+
+
+    /**
+     * @param date the date in the format "yyyy-MM-dd"
+     */
+    public long getStartOfDayInMillis(String date) throws ParseException {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(format.parse(date));
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+    }
+
+    /**
+     * @param date the date in the format "yyyy-MM-dd"
+     */
+    public long getEndOfDayInMillis(String date) throws ParseException {
+        // Add one day's time to the beginning of the day.
+        // 24 hours * 60 minutes * 60 seconds * 1000 milliseconds = 1 day
+        return getStartOfDayInMillis(date) + (24 * 60 * 60 * 1000);
     }
 
     public void deleteReport(){

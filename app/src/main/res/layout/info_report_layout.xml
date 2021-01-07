@@ -24,8 +24,9 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="8dp"
             android:text="Il mio report"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            android:textColor="@color/title_report"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +40,7 @@
             android:paddingVertical="4dp"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/title_report" />
+            android:textColor="@color/colorPrimaryDark" />
     </LinearLayout>
 
 
@@ -404,6 +405,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        app:tint="@color/white"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/ic_edit"

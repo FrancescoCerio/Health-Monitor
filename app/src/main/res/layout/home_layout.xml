@@ -22,10 +22,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|start"
             android:paddingHorizontal="8dp"
-            android:paddingVertical="8dp"
+            android:paddingTop="16dp"
             android:text="Ultimo report"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-            android:textColor="@color/title_report"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:textSize="24sp"
+            android:textColor="@color/colorPrimaryDark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +40,7 @@
             android:paddingVertical="4dp"
             android:text=""
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/title_report"
+            android:textColor="@color/colorPrimaryDark"
             />
     </LinearLayout>
 
@@ -52,7 +53,7 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/home_title"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:padding="4dp"
         android:layout_marginHorizontal="6dp"
         app:cardCornerRadius="20dp"
@@ -398,20 +399,25 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/trendBtn"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="8dp"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:textSize="18sp"
         android:text="Le mie statistiche"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
         app:backgroundTint="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_glicemia"
-        app:layout_constraintVertical_bias="0.131" />
+        app:layout_constraintVertical_bias="0.276" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

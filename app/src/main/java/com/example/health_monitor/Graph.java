@@ -312,15 +312,6 @@ public class Graph extends AppCompatActivity {
 
 }
 
-class StringValueFormatter extends ValueFormatter{
-    private String[] values = {"Temperatura", "Battito", "Glicemia", "Pressione"};
-
-    @Override
-    public String getAxisLabel(float value, AxisBase axis) {
-        return values[0];
-    }
-}
-
 class IndexAxisValueFormatterHelper extends ValueFormatter {
     private String[] mValues = new String[] {};
     private int mValueCount = 0;

@@ -15,6 +15,8 @@ import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -49,7 +51,14 @@ import static com.example.health_monitor.AddEditReportActivity.DELETE_REPORT;
 public class MainActivity extends AppCompatActivity {
     public static final int ADD_REPORT_REQUEST = 1;
     public static final int EDIT_REPORT_REQUEST = 2;
-    public static final String CHANNEL_NOTIFICATION = "Reminder giornaliero";
+    /*
+    public static final String AVG_TOO_HIGH_CHANNEL = "AVG_TOO_HIGH_CHANNEL";
+    public static final int AVG_NOTIFICATION_ID = 2;
+    public static Boolean isMonitoringActive = false;
+    public static String valueToMonitorInBackground;
+    public static int valueToMonitorNumberInBackground;
+
+     */
     private ReportViewModel reportViewModel;
 
     @Override
@@ -79,10 +88,73 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), AddEditReportActivity.class);
-                startActivityForResult(i, ADD_REPORT_REQUEST);
+                startActivity(i);
             }
         });
+
     }
+    /*
+    private void checkAvgValue() throws ExecutionException, InterruptedException {
+        ArrayList<Double> avgValues = reportViewModel.getAvgValues();
+        switch(valueToMonitorInBackground){
+            case "Temperatura":
+                Double temp = avgValues.get(1);
+                if(temp > valueToMonitorNumberInBackground) {
+                    notifyAvgOverThreshold();
+                }
+                break;
+
+            case "Battito":
+                Double batt = avgValues.get(2);
+                if(batt > valueToMonitorNumberInBackground){
+                    notifyAvgOverThreshold();
+                }
+                break;
+
+            case "Pressione":
+                Double press = avgValues.get(3);
+                if(press > valueToMonitorNumberInBackground){
+                    notifyAvgOverThreshold();
+                }
+                break;
+
+            case "Glicemia":
+                Double glic = avgValues.get(4);
+                if(glic > valueToMonitorNumberInBackground){
+                    notifyAvgOverThreshold();
+                }
+                break;
+
+            default:
+                break;
+
+        }
+    }
+
+    private void notifyAvgOverThreshold(){
+        CharSequence name = getResources().getString(R.string.app_name);
+
+        NotificationCompat.Builder mBuilder;
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Intent rescheduleIntent = new Intent(this, Graph.class);
+        rescheduleIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent showAvgValuesIntent = PendingIntent.getActivity(this, 0, rescheduleIntent, PendingIntent.FLAG_ONE_SHOT);
+
+        NotificationChannel mChannel = new NotificationChannel(AVG_TOO_HIGH_CHANNEL, name, NotificationManager.IMPORTANCE_HIGH);
+        mNotificationManager.createNotificationChannel(mChannel);
+        mBuilder = new NotificationCompat.Builder(this, AVG_TOO_HIGH_CHANNEL)
+                .setSmallIcon(R.drawable.ic_icons8_health)
+                .setLights(Color.RED, 300, 300)
+                .setChannelId(AVG_TOO_HIGH_CHANNEL)
+                .setContentTitle("Ops... qualcosa non va")
+                .setContentText("Il valore medio " + valueToMonitorInBackground + " ha superato la soglia impostata di " + valueToMonitorNumberInBackground)
+                .setContentIntent(showAvgValuesIntent)
+                .setAutoCancel(true);
+
+        mNotificationManager.notify(AVG_NOTIFICATION_ID, mBuilder.build());
+    }
+
+     */
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -118,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
 
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#57944B"));
 
         if(isHome){
             actionBar.setTitle(Html.fromHtml("<font color=\"#f4f4f4\">" + "Health Monitor" + "</font>"));
@@ -152,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
      * @param requestCode
      * @param resultCode
      * @param data
-     */
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -169,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
             float battSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_BATTITO_SLIDER, 3);
             float pressSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_PRESSURE_SLIDER, 3);
             float glicSlider = data.getFloatExtra(AddEditReportActivity.EXTRA_GLICEMIA_SLIDER, 3);
+
             Report report;
             long startDay;
             long endDay;
@@ -212,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
                     Report updatedReport = new Report (dateToStore, avgTemp, avgGlic, avgPress, avgBatt, avgTempSlider, avgPressSlider, avgGlicSlider, avgBattSlider, "");
                     updatedReport.setId(reportByDate.getId());
                     reportViewModel.update(updatedReport);
-                    Toast.makeText(getApplicationContext(), "Media report aggiornata!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Report giornaliero aggiornato!", Toast.LENGTH_SHORT).show();
                 }
             } catch (ParseException | InterruptedException | ExecutionException e) {
                 e.printStackTrace();
@@ -222,7 +294,20 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Report non salvato", Toast.LENGTH_SHORT).show();
         }
 
+        /*
+        // Attivo il monitoraggio del valore inserito nelle impostazioni
+        if(isMonitoringActive){
+            try {
+                checkAvgValue();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
     }
+    */
 
     /**
      * @param date the date in the format "yyyy-MM-dd"

@@ -31,7 +31,7 @@
 
     <DropDownPreference
         app:key="valueToMonitor"
-        android:title="Valore"
+        android:title="Indice"
         android:dependency="valueMonitor"
         app:entryValues="@array/monitor_value_array"
         />
@@ -39,16 +39,7 @@
     <EditTextPreference
         app:key="valueToMonitorNumber"
         android:title="Soglia massima"
-        android:defaultValue="60"
-        android:dependency="valueMonitor"
-        />
-
-    <SeekBarPreference
-        app:key="sliderPreference"
-        android:defaultValue="3"
-        app:min="1"
-        android:max="5"
-        app:showSeekBarValue="true"
+        android:defaultValue="100"
         android:dependency="valueMonitor"
         />
 

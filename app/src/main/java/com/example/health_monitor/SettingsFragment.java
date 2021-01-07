@@ -21,35 +21,35 @@ import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import static com.example.health_monitor.SettingsActivity.startAlarmBroadcastReceiver;
+import static com.example.health_monitor.AddEditReportActivity.isMonitoringActive;
+import static com.example.health_monitor.AddEditReportActivity.valueToMonitorInBackground;
+import static com.example.health_monitor.AddEditReportActivity.valueToMonitorNumberInBackground;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
     private Preference hourSetting;
-    private SeekBarPreference preferenceSlider;
     private Calendar mcurrentTime;
     private DropDownPreference valueToMonitor;
-    private EditTextPreference valueToMonitorNumber;
+    private Preference valueToMonitorNumber;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.settings, rootKey);
 
+        final SharedPreferences sharedPreferences =
+                getContext().getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
+        final SwitchPreferenceCompat notificationSwitch = findPreference("notifications");
+        final SwitchPreferenceCompat valueMonitorSwitch = findPreference("valueMonitor");
         hourSetting = findPreference("settingHour");
-        preferenceSlider = findPreference("sliderPreference");
         valueToMonitor = findPreference("valueToMonitor");
         valueToMonitorNumber = findPreference("valueToMonitorNumber");
         List<String> listItems = new ArrayList<>();
-
         listItems.add("Battito");
         listItems.add("Temperatura");
         listItems.add("Glicemia");
         listItems.add("Pressione");
-
         CharSequence[] entries = listItems.toArray(new CharSequence[0]);
 
         valueToMonitor.setEntries(entries);
-
-        final SharedPreferences sharedPreferences =
-                getContext().getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
 
         // Controllo i valori da impostare di default
         if(!sharedPreferences.contains("notification_time_milliseconds")){
@@ -64,6 +64,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             valueToMonitor.setSummary(sharedPreferences.getString("value_to_monitor", entries[0].toString()));
         }
 
+        if(!sharedPreferences.contains("value_to_monitor_number")){
+            valueToMonitorNumber.setSummary("100");
+            sharedPreferences.edit().putInt("value_to_monitor_number", 100).apply();
+        } else {
+            valueToMonitorNumber.setSummary(String.valueOf(sharedPreferences.getInt("value_to_monitor_number", 100)));
+        }
+
         // Setto l'orario predefinito per la notifica
         long initialTime = sharedPreferences.getLong("notification_time_milliseconds", 1610125200678L);
         mcurrentTime = Calendar.getInstance();
@@ -74,7 +81,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         hourSetting.setSummary(initialHour + ":" + initialMinute);
 
-        final SwitchPreferenceCompat notificationSwitch = findPreference("notifications");
+        //Abilito e disabilito le notifiche per l'inserimento del Report giornaliero
         notificationSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -83,6 +90,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     enableNotification();
                 } else {
                     disableNotification();
+                }
+                return true;
+            }
+        });
+
+        // Abilito e disabilito il monitoraggio dei valori
+        valueMonitorSwitch.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                boolean turned = (Boolean) newValue;
+                if (turned){
+                    enableMonitoring();
+                } else {
+                    disableMonitoring();
                 }
                 return true;
             }
@@ -101,6 +122,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 valueToMonitor.setSummary(newValue.toString());
                 sharedPreferences.edit().putString("value_to_monitor", newValue.toString()).apply();
+                return true;
+            }
+        });
+
+        valueToMonitorNumber.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                valueToMonitorNumber.setSummary(newValue.toString());
+                sharedPreferences.edit().putInt("value_to_monitor_number", Integer.parseInt(newValue.toString())).apply();
                 return true;
             }
         });
@@ -146,6 +176,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private void disableNotification(){
         disableAlarm();
         hourSetting.setEnabled(false);
+    }
+
+    private void enableMonitoring(){
+        SharedPreferences sharedPreferences =
+                getContext().getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
+        valueToMonitorInBackground = sharedPreferences.getString("value_to_monitor", "Battito");
+        valueToMonitorNumberInBackground = sharedPreferences.getInt("value_to_monitor_number", 100);
+        isMonitoringActive = true;
+    }
+
+    private void disableMonitoring(){
+        isMonitoringActive = false;
     }
 
     private void disableAlarm(){

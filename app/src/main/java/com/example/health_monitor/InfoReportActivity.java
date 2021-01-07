@@ -28,8 +28,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import static com.example.health_monitor.AddEditReportActivity.DELETE_REPORT;
-
 public class InfoReportActivity extends AppCompatActivity {
 
     private ReportViewModel reportViewModel;
@@ -88,7 +86,6 @@ public class InfoReportActivity extends AppCompatActivity {
 
         actionBar.setHomeAsUpIndicator(R.drawable.arrow_back_white);
 
-
         ColorDrawable colorDrawable
                 = new ColorDrawable(Color.parseColor("#197ACF"));
 
@@ -97,8 +94,6 @@ public class InfoReportActivity extends AppCompatActivity {
         //getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.colorAccent));
 
         actionBar.setTitle(Html.fromHtml("<font color=\"#f4f4f4\">" + "Dettagli" + "</font>"));
-
-
 
     }
 
@@ -167,27 +162,18 @@ public class InfoReportActivity extends AppCompatActivity {
             }
 
 
-        } else if(requestCode == MainActivity.EDIT_REPORT_REQUEST && resultCode == RESULT_FIRST_USER){
+        } else
+            if(requestCode == MainActivity.EDIT_REPORT_REQUEST && resultCode == RESULT_FIRST_USER){
                 int id = data.getIntExtra(AddEditReportActivity.EXTRA_ID, -1);
-            Report report = null;
-            try {
-                report = reportViewModel.getReportById(id);
-                Log.d("REPORT DATE: ", String.valueOf(report.getDate()));
-                Log.d("REPORT BATTITO: ", String.valueOf(report.getCardio()));
                 try{
                     reportViewModel.delete(reportViewModel.getReportById(id));
                 } catch (Exception e){
-                    Log.d("DELETE:", "REPORT NOT DELETED");
                     e.printStackTrace();
                 }
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Report non salvato!", Toast.LENGTH_SHORT).show();
             }
-
-        } else {
-            Toast.makeText(getApplicationContext(), "Report non salvato!", Toast.LENGTH_SHORT).show();
-        }
-
         finish();
     }
 }
