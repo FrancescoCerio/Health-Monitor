@@ -37,9 +37,9 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent mainActivityIntent = new Intent(context, MainActivity.class);
-        mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent mainIntent = PendingIntent.getActivity(context, 0, mainActivityIntent, PendingIntent.FLAG_ONE_SHOT);
+        Intent rescheduleIntent = new Intent(context, MainActivity.class);
+        rescheduleIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent reschedulePendingIntent = PendingIntent.getActivity(context, 0, rescheduleIntent, PendingIntent.FLAG_ONE_SHOT);
 
         NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_HIGH);
         mNotificationManager.createNotificationChannel(mChannel);
@@ -50,7 +50,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 .setContentTitle("Report giornaliero")
                 .setContentText("Hey, è ora di aggiungere il tuo Report giornaliero!")
                 .setContentIntent(resultPendingIntent)
-                .addAction(0, "Posponi di un'ora", resultPendingIntent)
+                .addAction(0, "Posponi di un'ora", reschedulePendingIntent)
                 .setAutoCancel(true);
 
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());

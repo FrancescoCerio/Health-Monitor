@@ -231,6 +231,7 @@ public class Graph extends AppCompatActivity {
         dataSet.setColor(Color.RED);
         dataSet.setValueTextColor(Color.RED); // styling, ...
         dataSet.setCircleColor(Color.RED);
+        dataSet.setValueTextSize(10);
 
         dataSet.setDrawCircleHole(false);
         dataSet.setDrawIcons(false);
@@ -287,6 +288,7 @@ public class Graph extends AppCompatActivity {
 
         averageDataSet.setColor(Color.CYAN);
         averageDataSet.setValueTextColor(Color.parseColor("#0D3E69"));
+        averageDataSet.setValueTextSize(15);
 
         averageBarData = new BarData(averageDataSet);
 
@@ -296,6 +298,7 @@ public class Graph extends AppCompatActivity {
         xAxis.setLabelRotationAngle(0.5f);
 
         averageValueChart.clearAllViewportJobs();
+        averageValueChart.setDrawValueAboveBar(true);
         averageValueChart.clear();
         averageValueChart.getAxisRight().setEnabled(false);
         averageValueChart.setDragEnabled(true);
