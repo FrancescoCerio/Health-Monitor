@@ -128,7 +128,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 mcurrentTime.set(Calendar.HOUR_OF_DAY, timePicker.getHour());
                 mcurrentTime.set(Calendar.MINUTE, timePicker.getMinute());
                 hourSetting.setSummary(selectedHour + ":" + selectedMinute);
-                hourSetting.setDefaultValue(selectedHour + ":" + timePicker.getMinute());
+                hourSetting.setDefaultValue(selectedHour + ":" + selectedMinute);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
                 sharedPref.edit().putLong("notification_time_milliseconds", mcurrentTime.getTimeInMillis()).apply();
                 startAlarmBroadcastReceiver(getContext(), selectedHour, selectedMinute);

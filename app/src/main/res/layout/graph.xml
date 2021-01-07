@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/cardview_default_elevation">
 
-    <!--TextView
-        android:id="@+id/grafico_test"
+    <TextView
+        android:id="@+id/graphTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Grafici"
@@ -21,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </TextView-->
+    </TextView>
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/toggle_button_group"
@@ -31,7 +34,7 @@
         app:checkedButton="@+id/toggle_btn_temp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/graphTitle"
         android:layout_marginTop="8dp"
         app:selectionRequired="true"
         app:singleSelection="true">
@@ -69,79 +72,59 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
-    <!--RadioGroup
-        android:id="@+id/rdogrp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/grafico_test">
-
-        <RadioButton
-            android:layout_marginHorizontal="4dp"
-            android:id="@+id/btn1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:text="@string/label_temp"
-            android:button="@null"
-            android:checked="true"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_marginHorizontal="4dp"
-            android:id="@+id/btn2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:text="@string/label_batt"
-            android:button="@null"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_marginHorizontal="4dp"
-            android:id="@+id/btn3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:text="@string/label_press"
-            android:button="@null"
-            android:gravity="center" />
-
-        <RadioButton
-            android:layout_marginHorizontal="4dp"
-            android:id="@+id/btn4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:text="@string/label_glic"
-            android:button="@null"
-            android:gravity="center" />
-    </RadioGroup-->
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/graphLayout"
-        android:layout_width="411dp"
-        android:layout_height="645dp"
+        android:id="@+id/graphValueLayout"
+        android:layout_width="399dp"
+        android:layout_height="298dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toggle_button_group">
+        app:layout_constraintTop_toBottomOf="@+id/toggle_button_group"
+        app:layout_constraintVertical_bias="0.032">
 
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chart"
+            android:id="@+id/valueChart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="8dp"
             tools:layout_editor_absoluteX="2dp"
             tools:layout_editor_absoluteY="680dp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <TextView
+        android:id="@+id/averageValues"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Valori medi"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="16dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+        android:textColor="@color/title_report"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/graphValueLayout" >
 
+    </TextView>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/graphAverageLayout"
+        android:layout_width="399dp"
+        android:layout_height="298dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/averageValues"
+        app:layout_constraintVertical_bias="0.032">
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/averageChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="680dp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

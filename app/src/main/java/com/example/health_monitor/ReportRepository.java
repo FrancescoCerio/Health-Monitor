@@ -38,14 +38,9 @@ public class ReportRepository {
         new UpdateReportAsyncTask(report_dao).execute(report);
     }
 
-    /*
-    public Report getReportByDate(Long date1, Long date2){
-        Log.d("Date[0]", String.valueOf(date1));
-        Log.d("Date[1]", String.valueOf(date2));
-        return report_dao.getReportByDate(date1, date2);
+    public ArrayList<Double> getAvgValues() throws ExecutionException, InterruptedException {
+        return new GetAverageValuesAsyncTask(report_dao).execute().get();
     }
-
-     */
 
     public LiveData<List<Report>> getAllReport(){
         return all_report;
@@ -131,6 +126,26 @@ public class ReportRepository {
         @Override
         protected Report doInBackground(Date... dates) {
             return reportDao.getReportByDate(dates[0], dates[1]);
+        }
+    }
+
+    private static class GetAverageValuesAsyncTask extends AsyncTask<Void, Void, ArrayList<Double>>{
+        private ReportDAO reportDao;
+
+        private GetAverageValuesAsyncTask(ReportDAO reportdao){
+            this.reportDao = reportdao;
+        }
+
+
+        @Override
+        protected ArrayList<Double> doInBackground(Void... voids) {
+            ArrayList<Double> avgParams = new ArrayList<>();
+            avgParams.add(reportDao.getAvgTemperature());
+            avgParams.add(reportDao.getAvgCardio());
+            avgParams.add(reportDao.getAvgPressure());
+            avgParams.add(reportDao.getAvgGlucose());
+
+            return avgParams;
         }
     }
 }

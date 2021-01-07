@@ -9,9 +9,15 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.example.health_monitor.DB.Report;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -28,6 +34,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -41,8 +48,13 @@ public class Graph extends AppCompatActivity {
     private ReportViewModel reportViewModel;
     final private List<Report> rep = new ArrayList<>();
     LineDataSet dataSet;
-    LineChart chart;
+    LineChart valueChart;
     LineData lineData;
+
+    BarDataSet averageDataSet;
+    BarChart averageValueChart;
+    BarData averageBarData;
+
     MaterialButtonToggleGroup toggleBtn;
     MaterialButton tempBtn;
     MaterialButton battBtn;
@@ -56,7 +68,7 @@ public class Graph extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graph);
         setActionBarStyle();
-        chart = findViewById(R.id.chart);
+        valueChart = findViewById(R.id.valueChart);
         dataSet = null;
         toggleBtn = findViewById(R.id.toggle_button_group);
         toggleBtn.clearOnButtonCheckedListeners();
@@ -64,6 +76,9 @@ public class Graph extends AppCompatActivity {
         glicBtn = findViewById(R.id.toggle_btn_glic);
         battBtn = findViewById(R.id.toggle_btn_batt);
         pressBtn = findViewById(R.id.toggle_btn_press);
+
+        averageValueChart = findViewById(R.id.averageChart);
+        averageDataSet = null;
 
         reportViewModel = new ViewModelProvider(this,
                 ViewModelProvider
@@ -84,12 +99,35 @@ public class Graph extends AppCompatActivity {
             }
         });
 
+        /** Valori medi nell'ordine:
+         * Temperatura
+         * Battito
+         * Pressione
+         * Glicemia
+         */
+        ArrayList<Double> avgValues = new ArrayList<>();
+        try {
+            avgValues = reportViewModel.getAvgValues();
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if(avgValues != null){
+            setAvgChartValues(avgValues);
+        } else {
+            averageValueChart.setNoDataText("Valori al momento non disponibili");
+        }
+        for (Double value : avgValues) {
+            Log.d("AVG VALUE", String.valueOf(value));
+        }
+
+
         toggleBtn.check(tempBtn.getId());
 
         tempBtn.addOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(MaterialButton button, boolean isChecked) {
-                chart.clearValues();
+                valueChart.clearValues();
                 setChartValues(1);
             }
         });
@@ -97,7 +135,7 @@ public class Graph extends AppCompatActivity {
         battBtn.addOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(MaterialButton button, boolean isChecked) {
-                chart.clearValues();
+                valueChart.clearValues();
                 setChartValues(2);
             }
         });
@@ -105,7 +143,7 @@ public class Graph extends AppCompatActivity {
         pressBtn.addOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(MaterialButton button, boolean isChecked) {
-                chart.clearValues();
+                valueChart.clearValues();
                 setChartValues(3);
             }
         });
@@ -113,7 +151,7 @@ public class Graph extends AppCompatActivity {
         glicBtn.addOnCheckedChangeListener(new MaterialButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(MaterialButton button, boolean isChecked) {
-                chart.clearValues();
+                valueChart.clearValues();
                 setChartValues(4);
             }
         });
@@ -183,7 +221,7 @@ public class Graph extends AppCompatActivity {
                 break;
 
             default:
-                chart.setNoDataText("Nessun valore presente.");
+                valueChart.setNoDataText("Nessun valore presente.");
                 break;
         }
 
@@ -197,57 +235,92 @@ public class Graph extends AppCompatActivity {
         dataSet.setDrawCircleHole(false);
         dataSet.setDrawIcons(false);
         dataSet.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+        dataSet.setGradientColor(Color.RED, Color.TRANSPARENT);
         dataSet.setCubicIntensity(0.5f);
 
         lineData = new LineData(dataSet);
 
 
-        XAxis xAxis = chart.getXAxis();
+        XAxis xAxis = valueChart.getXAxis();
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setValueFormatter(new IndexAxisValueFormatterHelper(xAxisValues));
         xAxis.setLabelRotationAngle(0.5f);
 
-        chart.clearAllViewportJobs();
-        chart.clear();
+        valueChart.clearAllViewportJobs();
+        valueChart.clear();
 
         //chart.setDrawGridBackground(false);
-        chart.setDragEnabled(true);
-        chart.setPinchZoom(false);
-        chart.getAxisRight().setEnabled(false);
-        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        chart.getDescription().setEnabled(false);
-        chart.setDrawGridBackground(false);
+        valueChart.setDragEnabled(true);
+        valueChart.setPinchZoom(false);
+        valueChart.getAxisRight().setEnabled(false);
+        valueChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        valueChart.getDescription().setEnabled(false);
+        valueChart.setDrawGridBackground(false);
+        valueChart.setDrawBorders(false);
+        valueChart.animateX(500, Easing.EaseInSine);
 
-        chart.setData(lineData);
-        chart.setNoDataText("Nessun valore presente.");
-        chart.notifyDataSetChanged();
-        chart.invalidate(); // refresh
+        valueChart.setData(lineData);
+        valueChart.setNoDataText("Nessun valore presente.");
+        valueChart.notifyDataSetChanged();
+        valueChart.invalidate(); // refresh
 
+    }
+
+    public void setAvgChartValues(ArrayList<Double> avgValues){
+        ArrayList<String> xAxisAvgValues = new ArrayList<>();
+        ArrayList<BarEntry> entries = new ArrayList<>();
+
+        xAxisAvgValues.add("Temperatura");
+        xAxisAvgValues.add("Battito");
+        xAxisAvgValues.add("Pressione");
+        xAxisAvgValues.add("Glicemia");
+
+        int valueCount = 0;
+
+        for(Double avgValue : avgValues){
+            entries.add(new BarEntry(valueCount, avgValue.floatValue()));
+            valueCount++;
+        }
+
+        averageDataSet = new BarDataSet(entries, "");
+        averageDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+
+        averageDataSet.setColor(Color.CYAN);
+        averageDataSet.setValueTextColor(Color.parseColor("#0D3E69"));
+
+        averageBarData = new BarData(averageDataSet);
+
+        XAxis xAxis = averageValueChart.getXAxis();
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setValueFormatter(new IndexAxisValueFormatterHelper(xAxisAvgValues));
+        xAxis.setLabelRotationAngle(0.5f);
+
+        averageValueChart.clearAllViewportJobs();
+        averageValueChart.clear();
+        averageValueChart.getAxisRight().setEnabled(false);
+        averageValueChart.setDragEnabled(true);
+        averageValueChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        averageValueChart.getDescription().setEnabled(false);
+        averageValueChart.animateY(1000, Easing.EaseOutCirc);
+        averageValueChart.setData(averageBarData);
+        averageValueChart.notifyDataSetChanged();
+        averageValueChart.invalidate();
     }
 
 }
 
-class IndexAxisValueFormatterHelper extends ValueFormatter
-{
+class StringValueFormatter extends ValueFormatter{
+    private String[] values = {"Temperatura", "Battito", "Glicemia", "Pressione"};
+
+    @Override
+    public String getAxisLabel(float value, AxisBase axis) {
+        return values[0];
+    }
+}
+
+class IndexAxisValueFormatterHelper extends ValueFormatter {
     private String[] mValues = new String[] {};
     private int mValueCount = 0;
-
-    /**
-     * An empty constructor.
-     * Use `setValues` to set the axis labels.
-     */
-    public IndexAxisValueFormatterHelper() {
-    }
-
-    /**
-     * Constructor that specifies axis labels.
-     *
-     * @param values The values string array
-     */
-    public IndexAxisValueFormatterHelper(String[] values) {
-        if (values != null)
-            setValues(values);
-    }
 
     /**
      * Constructor that specifies axis labels.
@@ -263,21 +336,17 @@ class IndexAxisValueFormatterHelper extends ValueFormatter
     public String getFormattedValue(float value) {
         int index = Math.round(value);
 
-        Log.d("mValue ", String.valueOf(index));
         if (index < 0 || index >= mValueCount || index != (int)value)
             return "";
 
-        Log.d("mValue ", mValues[index]);
         return mValues[index];
     }
 
-    public String[] getValues()
-    {
+    public String[] getValues() {
         return mValues;
     }
 
-    public void setValues(String[] values)
-    {
+    public void setValues(String[] values) {
         if (values == null)
             values = new String[] {};
 

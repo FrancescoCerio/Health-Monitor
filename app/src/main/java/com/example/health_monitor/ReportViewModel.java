@@ -37,6 +37,10 @@ public class ReportViewModel extends AndroidViewModel {
         repository.delete(report);
     }
 
+    public ArrayList<Double> getAvgValues() throws ExecutionException, InterruptedException {
+        return repository.getAvgValues();
+    }
+
     public LiveData<List<Report>> getAllReport(){
         return allReport;
     }
