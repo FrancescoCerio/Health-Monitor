@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -79,11 +79,12 @@
         android:layout_width="399dp"
         android:layout_height="298dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/averageValues"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toggle_button_group"
-        app:layout_constraintVertical_bias="0.032">
+        android:layout_marginTop="4dp"
+        app:layout_constraintVertical_bias="0.0">
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/valueChart"
@@ -110,6 +111,20 @@
 
     </TextView>
 
+    <TextView
+        android:id="@+id/averageOverThreshold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:textSize="14sp"
+        android:visibility="gone"
+        android:text=""
+        app:layout_constraintBottom_toTopOf="@+id/graphAverageLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/averageValues" />
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/graphAverageLayout"
         android:layout_width="399dp"
@@ -119,7 +134,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/averageValues"
-        app:layout_constraintVertical_bias="0.032">
+        >
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/averageChart"

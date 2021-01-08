@@ -6,13 +6,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:paddingHorizontal="8dp"
 >
+    <!--LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+    </LinearLayout-->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:listitem="@layout/report_item"
-        />
+        tools:listitem="@layout/report_item" />
 
 </RelativeLayout>

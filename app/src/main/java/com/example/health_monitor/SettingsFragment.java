@@ -20,7 +20,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
-import static com.example.health_monitor.SettingsActivity.startAlarmBroadcastReceiver;
+import static com.example.health_monitor.AddEditReportActivity.isMonitorValueOverThreshold;
 import static com.example.health_monitor.AddEditReportActivity.isMonitoringActive;
 import static com.example.health_monitor.AddEditReportActivity.valueToMonitorInBackground;
 import static com.example.health_monitor.AddEditReportActivity.valueToMonitorNumberInBackground;
@@ -161,15 +161,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 hourSetting.setDefaultValue(selectedHour + ":" + selectedMinute);
                 SharedPreferences sharedPref = getContext().getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
                 sharedPref.edit().putLong("notification_time_milliseconds", mcurrentTime.getTimeInMillis()).apply();
-                startAlarmBroadcastReceiver(getContext(), selectedHour, selectedMinute);
+                startAlarmBroadcastReceiver( selectedHour, selectedMinute);
             }
         }, hour, minute, true);
         mTimePicker.show();
     }
 
+
     private void enableNotification(){
         disableAlarm();
-        startAlarmBroadcastReceiver(getContext(), mcurrentTime.get(Calendar.HOUR_OF_DAY), mcurrentTime.get(Calendar.MINUTE));
+        startAlarmBroadcastReceiver(mcurrentTime.get(Calendar.HOUR_OF_DAY), mcurrentTime.get(Calendar.MINUTE));
         hourSetting.setEnabled(true);
     }
 
@@ -188,6 +189,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private void disableMonitoring(){
         isMonitoringActive = false;
+        isMonitorValueOverThreshold = false;
     }
 
     private void disableAlarm(){
@@ -195,6 +197,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
+    }
+
+    public void startAlarmBroadcastReceiver(int selectedHour, int selectedMinute) {
+        Intent _intent = new Intent(getContext(), AlarmBroadcastReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, _intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(pendingIntent);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, selectedHour);
+        calendar.set(Calendar.MINUTE, selectedMinute);
+        calendar.set(Calendar.SECOND, 0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP , calendar.getTimeInMillis(), pendingIntent);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),   AlarmManager.INTERVAL_DAY , pendingIntent);
     }
 
 }

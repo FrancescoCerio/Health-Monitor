@@ -29,9 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import static android.app.Activity.RESULT_OK;
 
 public class DiaryFragment extends Fragment {
-    public static final int ADD_REPORT_REQUEST = 1;
-
-
+    ReportAdapter adapter = new ReportAdapter();
     private ReportViewModel reportViewModel;
 
     @Nullable
@@ -43,7 +41,7 @@ public class DiaryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
-        final ReportAdapter adapter = new ReportAdapter();
+
         recyclerView.setAdapter(adapter);
 
         reportViewModel = new ViewModelProvider(this,
@@ -65,6 +63,9 @@ public class DiaryFragment extends Fragment {
                 });
 
                 adapter.setReports(reports);
+
+                adapter.getItemCount();
+
             }
         });
 
@@ -90,5 +91,9 @@ public class DiaryFragment extends Fragment {
         });
 
         return diaryView;
+    }
+
+    private void applyFilter(){
+
     }
 }

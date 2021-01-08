@@ -71,6 +71,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     public static final String AVG_TOO_HIGH_CHANNEL = "AVG_TOO_HIGH_CHANNEL";
     public static final int AVG_NOTIFICATION_ID = 2;
     public static Boolean isMonitoringActive = false;
+    public static Boolean isMonitorValueOverThreshold = false;
     public static String valueToMonitorInBackground;
     public static int valueToMonitorNumberInBackground;
 
@@ -390,15 +391,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
             e.printStackTrace();
         }
 
-
-        // Attivo il monitoraggio del valore inserito nelle impostazioni
-        if (isMonitoringActive) {
-            try {
-                checkAvgValue();
-            } catch (ExecutionException | InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        checkMonitoring();
         finish();
     }
 
@@ -442,6 +435,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     private void notifyAvgOverThreshold(){
         CharSequence name = getResources().getString(R.string.app_name);
 
+        isMonitorValueOverThreshold = true;
         NotificationCompat.Builder mBuilder;
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         Intent rescheduleIntent = new Intent(this, Graph.class);
@@ -462,6 +456,10 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         mNotificationManager.notify(AVG_NOTIFICATION_ID, mBuilder.build());
     }
 
+
+    /**
+     * Update dei valori del Report
+     */
     private void updateReport(){
         if (temperatureText.getText().toString().isEmpty() || pressureText.getText().toString().isEmpty() || battitoText.getText().toString().isEmpty() || glicemiaText.getText().toString().isEmpty()) {
             Toast.makeText(this, "Inserisci tutti i valori", Toast.LENGTH_SHORT).show();
@@ -525,10 +523,22 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+
+        checkMonitoring();
+
         finish();
     }
 
-
+    // Attivo il monitoraggio del valore inserito nelle impostazioni
+    private void checkMonitoring(){
+        if (isMonitoringActive) {
+            try {
+                checkAvgValue();
+            } catch (ExecutionException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * @param date the date in the format "yyyy-MM-dd"

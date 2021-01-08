@@ -49,17 +49,5 @@ public class SettingsActivity extends AppCompatActivity {
         actionBar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + "Impostazioni" + "</font>"));
     }
 
-    public static void startAlarmBroadcastReceiver(Context context, int selectedHour, int selectedMinute) {
-        Intent _intent = new Intent(context, AlarmBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, _intent, 0);
-        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(pendingIntent);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, selectedHour);
-        calendar.set(Calendar.MINUTE, selectedMinute);
-        calendar.set(Calendar.SECOND, 0);
-        alarmManager.set(AlarmManager.RTC_WAKEUP , calendar.getTimeInMillis(), pendingIntent);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),   AlarmManager.INTERVAL_DAY , pendingIntent);
-    }
+
 }

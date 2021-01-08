@@ -6,7 +6,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.health_monitor.DB.Report;
 import com.github.mikephil.charting.animation.Easing;
@@ -44,6 +46,10 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import static com.example.health_monitor.AddEditReportActivity.isMonitorValueOverThreshold;
+import static com.example.health_monitor.AddEditReportActivity.valueToMonitorNumberInBackground;
+import static com.example.health_monitor.AddEditReportActivity.valueToMonitorInBackground;
+
 public class Graph extends AppCompatActivity {
     private ReportViewModel reportViewModel;
     final private List<Report> rep = new ArrayList<>();
@@ -61,6 +67,8 @@ public class Graph extends AppCompatActivity {
     MaterialButton glicBtn;
     MaterialButton pressBtn;
 
+    TextView isMonitorValueOverThresholdText;
+
 
     @SuppressLint("ResourceType")
     @Override
@@ -76,6 +84,15 @@ public class Graph extends AppCompatActivity {
         glicBtn = findViewById(R.id.toggle_btn_glic);
         battBtn = findViewById(R.id.toggle_btn_batt);
         pressBtn = findViewById(R.id.toggle_btn_press);
+        isMonitorValueOverThresholdText = findViewById(R.id.averageOverThreshold);
+
+        if(isMonitorValueOverThreshold){
+            String toShow = "Il valore di " + valueToMonitorInBackground + " ha superato la soglia di " + valueToMonitorNumberInBackground;
+            isMonitorValueOverThresholdText.setText(toShow);
+            isMonitorValueOverThresholdText.setVisibility(View.VISIBLE);
+        } else {
+            isMonitorValueOverThresholdText.setVisibility(View.GONE);
+        }
 
         averageValueChart = findViewById(R.id.averageChart);
         averageDataSet = null;
