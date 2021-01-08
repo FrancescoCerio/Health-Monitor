@@ -43,11 +43,14 @@ public class Report {
     @ColumnInfo(name="gpriority")
     private float gPriority;
 
+    @ColumnInfo(name="importance")
+    private float importance;
+
     @TypeConverters(DateConverter.class)
     @ColumnInfo(name="date")
     private Date date;
 
-    public Report(Date date, int temperature, int glicemia, int pressure, int cardio, float tPriority, float pPriority, float gPriority, float bPriority, String note) {
+    public Report(Date date, int temperature, int glicemia, int pressure, int cardio, float tPriority, float pPriority, float gPriority, float bPriority, String note, float importance) {
         this.temperature = temperature;
         this.glicemia = glicemia;
         this.pressure = pressure;
@@ -57,6 +60,7 @@ public class Report {
         this.bPriority = bPriority;
         this.gPriority = gPriority;
         this.pPriority = pPriority;
+        this.importance = importance;
         this.date = date;
     }
 
@@ -103,6 +107,10 @@ public class Report {
 
     public float getGPriority() {
         return gPriority;
+    }
+
+    public float getImportance() {
+        return importance;
     }
 
     public Date getDate() {

@@ -369,7 +369,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material/icons/materialiconsround/settings/round_settings_24.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material/icons/materialicons/notification_important/baseline_notification_important_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -380,7 +380,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_round_settings_24" />
+                            <entry key="outputName" value="ic_important" />
                             <entry key="sourceFile" value="$USER_HOME$/Desktop/health monitor svg/chart-outilne.svg" />
                           </map>
                         </option>

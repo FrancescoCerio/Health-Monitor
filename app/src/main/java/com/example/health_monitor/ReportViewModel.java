@@ -54,4 +54,8 @@ public class ReportViewModel extends AndroidViewModel {
     }
 
     public Report getReportByDate(Date startDay, Date endDay) throws ExecutionException, InterruptedException { return repository.getReportByDate(startDay, endDay);}
+
+    public LiveData<List<Report>> getReportWithImportance(int importance) throws ExecutionException, InterruptedException {
+        return repository.getReportWithImportance(importance);
+    }
 }

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 9,
-    "identityHash": "c5e05ff3e8155b59ef2e00f21388a78b",
+    "identityHash": "5b57db627a9f25fef1322218d0620291",
     "entities": [
       {
         "tableName": "reportdb",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `temperature` INTEGER NOT NULL, `glicemia` INTEGER NOT NULL, `pressure` INTEGER NOT NULL, `cardio` INTEGER NOT NULL, `note` TEXT, `temppriority` REAL NOT NULL, `bpriority` REAL NOT NULL, `ppriority` REAL NOT NULL, `gpriority` REAL NOT NULL, `date` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `temperature` INTEGER NOT NULL, `glicemia` INTEGER NOT NULL, `pressure` INTEGER NOT NULL, `cardio` INTEGER NOT NULL, `note` TEXT, `temppriority` REAL NOT NULL, `bpriority` REAL NOT NULL, `ppriority` REAL NOT NULL, `gpriority` REAL NOT NULL, `importance` REAL NOT NULL, `date` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -69,6 +69,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "importance",
+            "columnName": "importance",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
             "fieldPath": "date",
             "columnName": "date",
             "affinity": "INTEGER",
@@ -88,7 +94,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c5e05ff3e8155b59ef2e00f21388a78b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5b57db627a9f25fef1322218d0620291')"
     ]
   }
 }

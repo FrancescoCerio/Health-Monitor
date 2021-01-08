@@ -59,7 +59,9 @@ public class ReportRepository {
         return new GetReportByDateAsyncTask(report_dao).execute(startDay, endDay).get();
     }
 
-
+    public LiveData<List<Report>> getReportWithImportance(int importance) throws ExecutionException, InterruptedException {
+        return new GetReportByImportanceAsyncTask(report_dao).execute(importance).get();
+    }
 
     private static class InsertReportAsyncTask extends AsyncTask<Report, Void, Void>{
         private ReportDAO reportDao;
@@ -146,6 +148,19 @@ public class ReportRepository {
             avgParams.add(reportDao.getAvgGlucose());
 
             return avgParams;
+        }
+    }
+
+    private static class GetReportByImportanceAsyncTask extends AsyncTask<Integer, Void, LiveData<List<Report>>>{
+        private ReportDAO reportDao;
+
+        private GetReportByImportanceAsyncTask(ReportDAO reportdao){
+            this.reportDao = reportdao;
+        }
+
+        @Override
+        protected LiveData<List<Report>> doInBackground(Integer... importance) {
+            return reportDao.getReportWithImportance(importance[0]);
         }
     }
 }

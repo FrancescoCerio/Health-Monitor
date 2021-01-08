@@ -341,6 +341,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         float pressPriority = Float.parseFloat(pSliderValue);
         float battitoPriority = Float.parseFloat(bSliderValue);
         float glicemiaPriority = Float.parseFloat(gSliderValue);
+        float importance = (tempPriority + pressPriority + battitoPriority + glicemiaPriority) / 4;
 
         Report report;
         long startDay;
@@ -363,7 +364,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
             Report reportByDate = reportViewModel.getReportByDate(startDayDate, endDayDate);
 
             if (reportByDate == null) {
-                report = new Report(dateToStore, temperatureValue, glicemiaValue, pressioneValue, battitoValue, tempPriority, pressPriority, glicemiaPriority, battitoPriority, noteText);
+                report = new Report(dateToStore, temperatureValue, glicemiaValue, pressioneValue, battitoValue, tempPriority, pressPriority, glicemiaPriority, battitoPriority, noteText, importance);
                 reportViewModel.insert(report);
                 Toast.makeText(getApplicationContext(), "Report salvato!", Toast.LENGTH_SHORT).show();
             } else {
@@ -382,7 +383,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
                 avgPressSlider = Math.round((reportByDate.getPPriority() + pressPriority) / 2);
                 avgGlicSlider = Math.round((reportByDate.getGPriority() + glicemiaPriority) / 2);
 
-                Report updatedReport = new Report(dateToStore, avgTemp, avgGlic, avgPress, avgBatt, avgTempSlider, avgPressSlider, avgGlicSlider, avgBattSlider, "");
+                Report updatedReport = new Report(dateToStore, avgTemp, avgGlic, avgPress, avgBatt, avgTempSlider, avgPressSlider, avgGlicSlider, avgBattSlider, "", importance);
                 updatedReport.setId(reportByDate.getId());
                 reportViewModel.update(updatedReport);
                 Toast.makeText(getApplicationContext(), "Report giornaliero aggiornato!", Toast.LENGTH_SHORT).show();
@@ -502,6 +503,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         float pressPriority = Float.parseFloat(pSliderValue);
         float battitoPriority = Float.parseFloat(bSliderValue);
         float glicemiaPriority = Float.parseFloat(gSliderValue);
+        float importance = (tempPriority + pressPriority + battitoPriority + glicemiaPriority) / 4;
         // Effettuo la modifica dei parametri in DB con una media dei valori attuali
         try {
             Report toUpdate = reportViewModel.getReportById(id);
@@ -515,7 +517,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
             }
 
             Date dateToStore = DateConverter.toDate(dateLong);
-            Report updatedReport = new Report (dateToStore, temperatureValue, glicemiaValue, pressioneValue, battitoValue, tempPriority, pressPriority, glicemiaPriority, battitoPriority, noteToStore);
+            Report updatedReport = new Report (dateToStore, temperatureValue, glicemiaValue, pressioneValue, battitoValue, tempPriority, pressPriority, glicemiaPriority, battitoPriority, noteToStore, importance);
             updatedReport.setId(id);
             reportViewModel.update(updatedReport);
 

@@ -7,9 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = Report.class, version = 8)
+@Database(entities = Report.class, version = 9)
 public abstract class ReportDB extends RoomDatabase {
 
     private static ReportDB instance;
@@ -22,6 +23,7 @@ public abstract class ReportDB extends RoomDatabase {
                     ReportDB.class,
                     "reportdb")
                     .fallbackToDestructiveMigration()
+                    .addMigrations(MIGRATION_1_2)
                     .addCallback(roomCallback)
                     .build();
         }
@@ -48,5 +50,12 @@ public abstract class ReportDB extends RoomDatabase {
             return null;
         }
     }
+
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE reportdb ADD COLUMN importance FLOAT");
+        }
+    };
 }
 

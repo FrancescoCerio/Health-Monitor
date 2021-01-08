@@ -90,7 +90,7 @@
             app:hintTextColor="@color/colorPrimaryDark"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:helperText="valore > 36°"
+            app:helperText="valore > 33°"
             app:shapeAppearance="@style/ShapeAppearance.MaterialComponents.Tooltip">
 
             <com.google.android.material.textfield.TextInputEditText

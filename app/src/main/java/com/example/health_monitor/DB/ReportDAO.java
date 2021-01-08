@@ -1,5 +1,6 @@
 package com.example.health_monitor.DB;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,6 +23,9 @@ public interface ReportDAO {
 
     @Delete
     void delete(Report report);
+
+    @Query("SELECT * FROM reportdb WHERE importance <= :importance")
+    LiveData<List<Report>> getReportWithImportance(int importance);
 
     @Query("SELECT * FROM reportdb ORDER BY tempPriority DESC")
     LiveData<List<Report>> getAllReport();

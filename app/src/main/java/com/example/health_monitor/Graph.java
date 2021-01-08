@@ -192,7 +192,7 @@ public class Graph extends AppCompatActivity {
         actionBar.setTitle(Html.fromHtml("<font color=\"#ffffff\">" + "Statistiche" + "</font>"));
     }
 
-    void setChartValues(final int mode){
+    void setChartValues(int mode){
 
         final ArrayList<String> xAxisValues = new ArrayList<>();
         DateFormat dateFormat = new SimpleDateFormat("dd'/'MM'/'YY", Locale.ITALY);
