@@ -31,7 +31,7 @@
     <string name="time_enable_text">Notifiche</string>
 
     <string name="value_controller_title">Monitoraggio dei valori</string>
-    <string name="value_controller_description">Health Monitor ti permette di monitorare un valore e impostare una soglia massima che può raggiungere. Nel caso in cui dovesse essere superata, verrai avvisato.</string>
+    <string name="value_controller_description">Health Monitor ti permette di monitorare un valore e impostare una soglia massima che può raggiungere. Nel caso in cui dovesse essere superata, verrai avvisato quando aggiungi o aggiorni un Report.</string>
     <string name="control_enable_text">Monitoraggio valori</string>
     <string name="value_to_monitor">Valore da monitorare</string>
     <string name="limit">Limite</string>

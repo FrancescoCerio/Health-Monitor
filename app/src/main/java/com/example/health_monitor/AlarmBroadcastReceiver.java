@@ -1,6 +1,5 @@
 package com.example.health_monitor;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -37,10 +36,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent rescheduleIntent = new Intent(context, MainActivity.class);
-        rescheduleIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent reschedulePendingIntent = PendingIntent.getActivity(context, 0, rescheduleIntent, PendingIntent.FLAG_ONE_SHOT);
-
         NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_HIGH);
         mNotificationManager.createNotificationChannel(mChannel);
         mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
@@ -50,7 +45,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 .setContentTitle("Report giornaliero")
                 .setContentText("Hey, è ora di aggiungere il tuo Report giornaliero!")
                 .setContentIntent(resultPendingIntent)
-                .addAction(0, "Posponi di un'ora", reschedulePendingIntent)
                 .setAutoCancel(true);
 
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());

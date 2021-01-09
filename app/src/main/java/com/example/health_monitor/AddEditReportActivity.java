@@ -75,8 +75,6 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     public static String valueToMonitorInBackground;
     public static int valueToMonitorNumberInBackground;
 
-    public static final int DELETE_REPORT = -2;
-
     private TextInputEditText temperatureText;
     private TextInputEditText pressureText;
     private TextInputEditText glicemiaText;
@@ -573,11 +571,6 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
             } catch (Exception e){
                 e.printStackTrace();
             }
-            /*
-            Intent deleteReport = new Intent();
-            deleteReport.putExtra(EXTRA_ID, id);
-            setResult(RESULT_FIRST_USER, deleteReport);
-             */
         }
         else {
             Toast.makeText(getApplicationContext(), "Report non salvato!", Toast.LENGTH_SHORT).show();

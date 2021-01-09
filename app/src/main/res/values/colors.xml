@@ -17,14 +17,4 @@
 
     <color name="inputTextField">#B53F04</color>
 
-    <!-- VECCHI COLORI -->
-    <!--color name="colorPrimary">#57944B</color>
-    <color name="colorPrimaryDark">#1E351A</color>
-    <color name="myColorPrimaryDark">#55BA43</color>
-    <color name="colorAccent">#A0D97E</color>
-    <color name="title_report">#212121</color>
-    <color name="whiteText">#f4f4f4</color>
-    <color name="white">#fff</color>
-
-    <color name="inputTextField">#DE7047</color-->
 </resources>

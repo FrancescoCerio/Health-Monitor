@@ -14,10 +14,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import androidx.preference.DropDownPreference;
-import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SeekBarPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import static com.example.health_monitor.AddEditReportActivity.isMonitorValueOverThreshold;
@@ -180,11 +178,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void enableMonitoring(){
+        isMonitoringActive = true;
         SharedPreferences sharedPreferences =
                 getContext().getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
         valueToMonitorInBackground = sharedPreferences.getString("value_to_monitor", "Battito");
         valueToMonitorNumberInBackground = sharedPreferences.getInt("value_to_monitor_number", 100);
-        isMonitoringActive = true;
     }
 
     private void disableMonitoring(){

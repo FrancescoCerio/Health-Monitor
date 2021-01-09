@@ -8,55 +8,69 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.example.health_monitor.DB.DateConverter;
 import com.example.health_monitor.DB.Report;
 import com.google.android.material.chip.Chip;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import static android.app.Activity.RESULT_OK;
 
 public class DiaryFragment extends Fragment {
     ReportAdapter adapter = new ReportAdapter();
     private ReportViewModel reportViewModel;
     private Chip importanceChip;
     ImageButton filterButton;
+    ConstraintLayout noReportFound;
+    ConstraintLayout diaryLayout;
+    ConstraintLayout noReportFoundFilter;
+    RecyclerView recyclerView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View diaryView = inflater.inflate(R.layout.diary_layout, container, false);
+        noReportFound = diaryView.findViewById(R.id.no_report_found_layout);
+        diaryLayout = diaryView.findViewById(R.id.diaryLayout);
+        noReportFoundFilter = diaryView.findViewById(R.id.no_report_found_filter);
+        recyclerView = diaryView.findViewById(R.id.recycler_view);
 
-        RecyclerView recyclerView = diaryView.findViewById(R.id.recycler_view);
+        recyclerView.setVisibility(View.GONE);
+        noReportFoundFilter.setVisibility(View.GONE);
+        noReportFound.setVisibility(View.GONE);
+        diaryLayout.setVisibility(View.GONE);
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         final View checkBoxView = View.inflate(getContext(), R.layout.filter_checkbox, null);
         final int[] filterValue = new int[1];
         importanceChip = diaryView.findViewById(R.id.importanceChip);
+        filterButton = diaryView.findViewById(R.id.filterButton);
+        final RadioGroup radioGroup = checkBoxView.findViewById(R.id.radioGroup);
 
-        RadioGroup radioGroup = checkBoxView.findViewById(R.id.radioGroup);
+        reportViewModel = new ViewModelProvider(this,
+                ViewModelProvider
+                        .AndroidViewModelFactory
+                        .getInstance(getActivity().getApplication()))
+                .get(ReportViewModel.class);
+
+        recyclerView.setAdapter(adapter);
+
+        setAllReports();
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -111,26 +125,15 @@ public class DiaryFragment extends Fragment {
                     }
                 });
 
-        filterButton = diaryView.findViewById(R.id.filterButton);
-
 
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 builder.show();
-                //Toast.makeText(getContext(), "icsadcion", Toast.LENGTH_SHORT).show();
             }
         });
 
-        recyclerView.setAdapter(adapter);
 
-        reportViewModel = new ViewModelProvider(this,
-                ViewModelProvider
-                        .AndroidViewModelFactory
-                        .getInstance(getActivity().getApplication()))
-                .get(ReportViewModel.class);
-
-        setAllReports();
 
         // Gestisco il click di ogni elemento nella main activity in modo da poter modificare i valori inseriti
         adapter.setOnItemClickListener(new ReportAdapter.OnItemClickListener() {
@@ -157,6 +160,8 @@ public class DiaryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 importanceChip.setVisibility(View.GONE);
+                noReportFoundFilter.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
                 setAllReports();
             }
         });
@@ -179,7 +184,15 @@ public class DiaryFragment extends Fragment {
 
                 adapter.setReports(reports);
 
-                adapter.getItemCount();
+                if(adapter.getItemCount() == 0){
+                    diaryLayout.setVisibility(View.GONE);
+                    noReportFound.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                } else {
+                    noReportFound.setVisibility(View.GONE);
+                    diaryLayout.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
 
             }
         });
@@ -201,6 +214,18 @@ public class DiaryFragment extends Fragment {
                     }
                 });
                 adapter.setReports(reports);
+
+                if(adapter.getItemCount() == 0){
+                    recyclerView.setVisibility(View.GONE);
+                    diaryLayout.setVisibility(View.VISIBLE);
+                    noReportFound.setVisibility(View.GONE);
+                    noReportFoundFilter.setVisibility(View.VISIBLE);
+                } else {
+                    noReportFoundFilter.setVisibility(View.GONE);
+                    noReportFound.setVisibility(View.GONE);
+                    diaryLayout.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
             }
         });
     }

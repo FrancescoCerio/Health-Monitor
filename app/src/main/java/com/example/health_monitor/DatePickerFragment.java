@@ -7,7 +7,6 @@ import android.os.Bundle;
 import com.example.health_monitor.DB.DateConverter;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

@@ -6,360 +6,429 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="8dp">
 
-    <LinearLayout
-        android:id="@+id/home_title"
+    <!-- No Reports Layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/no_report_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/card_temperature"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/last_report"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|start"
-            android:paddingHorizontal="8dp"
-            android:paddingTop="16dp"
-            android:text="Ultimo report"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            android:textSize="24sp"
-            android:textColor="@color/colorPrimaryDark"
+        <ImageView
+            android:id="@+id/no_report_image"
+            android:layout_width="match_parent"
+            android:layout_height="430dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_insert_report"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/report_date"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
-            android:text=""
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:lineSpacingExtra="4.7sp"
+            android:text="Cominiciamo!"
             android:textColor="@color/colorPrimaryDark"
-            />
-    </LinearLayout>
+            android:textSize="23.3sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/no_report_image" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:letterSpacing="0.0265"
+            android:text="Per inserire un report,"
+            android:textColor="@color/grayTxt"
+            android:layout_marginVertical="4dp"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:letterSpacing="0.0265"
+            android:text="premi sul pulsante qui sotto."
+            android:textColor="@color/grayTxt"
+            android:layout_marginVertical="4dp"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_temperature"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- Main Screen Layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mainHomeScreen"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/home_title"
-        android:layout_gravity="center"
-        android:layout_marginTop="24dp"
-        android:padding="4dp"
-        android:layout_marginHorizontal="6dp"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/home_title"
-        android:background="@drawable/shadow">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/home_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
-
-            <ImageView
-                android:id="@+id/icon_temperature"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="5dp"
-                android:layout_alignParentStart="true"
-                android:gravity="center"
-                android:maxHeight="@dimen/cardview_compat_inset_shadow"
-                android:maxWidth="@dimen/cardview_compat_inset_shadow"
-                android:src="@drawable/ic_termometro"
-                tools:ignore="PrivateResource" />
+            app:layout_constraintBottom_toTopOf="@+id/card_temperature"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/card_temperatura_title"
+                android:id="@+id/last_report"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="0dp"
-                android:layout_toEndOf="@id/icon_temperature"
-                android:ellipsize="end"
-                android:gravity="start"
-                android:maxLines="1"
-                android:paddingStart="8dp"
-                android:text="Temperatura"
+                android:layout_gravity="top|start"
+                android:paddingHorizontal="8dp"
+                android:paddingTop="16dp"
+                android:text="Ultimo report"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                tools:ignore="RtlSymmetry" />
+                android:textSize="24sp"
+                android:textColor="@color/colorPrimaryDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/card_temperatura_value"
+                android:id="@+id/report_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="4dp"
-                android:layout_toEndOf="@id/card_temperatura_title"
-                android:layout_toStartOf="@+id/temp_degree"
-                android:gravity="end"
+                android:layout_gravity="start"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
                 android:text=""
-                android:textColor="#000"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="@color/colorPrimaryDark"
+                />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/temp_degree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="40dp"
-                android:gravity="center"
-                android:text="°C"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-        </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_battito"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/home_title"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:padding="4dp"
-        android:layout_marginHorizontal="6dp"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/card_temperature">
 
-        <RelativeLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/home_title"
+            android:layout_gravity="center"
+            android:layout_marginTop="24dp"
+            android:padding="4dp"
+            android:layout_marginHorizontal="6dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/home_title"
+            android:background="@drawable/shadow">
 
-            <ImageView
-                android:id="@+id/icon_battito"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="5dp"
-                android:layout_alignParentStart="true"
-                android:gravity="center"
-                android:maxHeight="@dimen/cardview_compat_inset_shadow"
-                android:maxWidth="@dimen/cardview_compat_inset_shadow"
-                android:src="@drawable/ic_heart_rate"
-                tools:ignore="PrivateResource" />
-
-            <TextView
-                android:id="@+id/card_battito_title"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="0dp"
-                android:layout_toEndOf="@id/icon_battito"
-                android:ellipsize="end"
-                android:gravity="start"
-                android:maxLines="1"
-                android:paddingStart="8dp"
-                android:text="Battito Cardiaco"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                tools:ignore="RtlSymmetry" />
+                android:padding="8dp">
 
-            <TextView
-                android:id="@+id/card_battito_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="4dp"
-                android:layout_toEndOf="@id/card_battito_title"
-                android:layout_toStartOf="@+id/batt_unit"
-                android:gravity="right"
-                android:text=""
-                android:textColor="#000"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"/>
-            <TextView
-                android:id="@+id/batt_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="24dp"
-                android:gravity="center"
-                android:text="bpm"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-        </RelativeLayout>
+                <ImageView
+                    android:id="@+id/icon_temperature"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="5dp"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center"
+                    android:maxHeight="@dimen/cardview_compat_inset_shadow"
+                    android:maxWidth="@dimen/cardview_compat_inset_shadow"
+                    android:src="@drawable/ic_termometro"
+                    tools:ignore="PrivateResource" />
 
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/card_temperatura_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_toEndOf="@id/icon_temperature"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:text="Temperatura"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    tools:ignore="RtlSymmetry" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_pressione"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/home_title"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:padding="4dp"
-        android:layout_marginHorizontal="6dp"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/card_battito">
+                <TextView
+                    android:id="@+id/card_temperatura_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_toEndOf="@id/card_temperatura_title"
+                    android:layout_toStartOf="@+id/temp_degree"
+                    android:gravity="end"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4" />
 
-        <RelativeLayout
+                <TextView
+                    android:id="@+id/temp_degree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="40dp"
+                    android:gravity="center"
+                    android:text="°C"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_battito"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/home_title"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:padding="4dp"
+            android:layout_marginHorizontal="6dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/card_temperature">
 
-            <ImageView
-                android:id="@+id/icon_pressione"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="5dp"
-                android:layout_alignParentStart="true"
-                android:gravity="center"
-                android:maxHeight="@dimen/cardview_compat_inset_shadow"
-                android:maxWidth="@dimen/cardview_compat_inset_shadow"
-                android:src="@drawable/ic_pressure"
-                tools:ignore="PrivateResource" />
-
-            <TextView
-                android:id="@+id/card_pressione_title"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="0dp"
-                android:layout_toEndOf="@id/icon_pressione"
-                android:ellipsize="end"
-                android:gravity="start"
-                android:maxLines="1"
-                android:paddingStart="8dp"
-                android:text="Pressione"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                tools:ignore="RtlSymmetry" />
+                android:padding="8dp">
 
-            <TextView
-                android:id="@+id/card_pressione_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="4dp"
-                android:layout_toEndOf="@id/card_pressione_title"
-                android:layout_toStartOf="@+id/press_unit"
-                android:gravity="right"
-                android:text=""
-                android:textColor="#000"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"  />
+                <ImageView
+                    android:id="@+id/icon_battito"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="5dp"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center"
+                    android:maxHeight="@dimen/cardview_compat_inset_shadow"
+                    android:maxWidth="@dimen/cardview_compat_inset_shadow"
+                    android:src="@drawable/ic_heart_rate"
+                    tools:ignore="PrivateResource" />
 
-            <TextView
-                android:id="@+id/press_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:gravity="center"
-                android:text="mmHg"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-        </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/card_battito_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_toEndOf="@id/icon_battito"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:text="Battito Cardiaco"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    tools:ignore="RtlSymmetry" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_glicemia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/home_title"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:padding="4dp"
-        android:layout_marginHorizontal="6dp"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/card_pressione">
+                <TextView
+                    android:id="@+id/card_battito_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_toEndOf="@id/card_battito_title"
+                    android:layout_toStartOf="@+id/batt_unit"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"/>
+                <TextView
+                    android:id="@+id/batt_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="24dp"
+                    android:gravity="center"
+                    android:text="bpm"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+            </RelativeLayout>
 
-        <RelativeLayout
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_pressione"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/home_title"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:padding="4dp"
+            android:layout_marginHorizontal="6dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/card_battito">
 
-            <ImageView
-                android:id="@+id/icon_glicemia"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="5dp"
-                android:layout_alignParentStart="true"
-                android:gravity="center"
-                android:maxHeight="@dimen/cardview_compat_inset_shadow"
-                android:maxWidth="@dimen/cardview_compat_inset_shadow"
-                android:src="@drawable/ic_glicemia"
-                tools:ignore="PrivateResource" />
-
-            <TextView
-                android:id="@+id/card_glicemia_title"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="0dp"
-                android:layout_toEndOf="@id/icon_glicemia"
-                android:ellipsize="end"
-                android:gravity="start"
-                android:maxLines="1"
-                android:paddingStart="8dp"
-                android:text="Glicemia"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-                tools:ignore="RtlSymmetry" />
+                android:padding="8dp">
 
-            <TextView
-                android:id="@+id/card_glicemia_value"
-                android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/icon_pressione"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="5dp"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center"
+                    android:maxHeight="@dimen/cardview_compat_inset_shadow"
+                    android:maxWidth="@dimen/cardview_compat_inset_shadow"
+                    android:src="@drawable/ic_pressure"
+                    tools:ignore="PrivateResource" />
+
+                <TextView
+                    android:id="@+id/card_pressione_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_toEndOf="@id/icon_pressione"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:text="Pressione"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    tools:ignore="RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/card_pressione_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_toEndOf="@id/card_pressione_title"
+                    android:layout_toStartOf="@+id/press_unit"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"  />
+
+                <TextView
+                    android:id="@+id/press_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:text="mmHg"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_glicemia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/home_title"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:padding="4dp"
+            android:layout_marginHorizontal="6dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/card_pressione">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="4dp"
-                android:layout_toEndOf="@id/card_glicemia_title"
-                android:layout_toStartOf="@+id/glic_unit"
-                android:gravity="right"
-                android:text=""
-                android:textColor="#000"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"  />
+                android:padding="8dp">
 
-            <TextView
-                android:id="@+id/glic_unit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:gravity="center"
-                android:text="mg/dL"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
-        </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <ImageView
+                    android:id="@+id/icon_glicemia"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="5dp"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center"
+                    android:maxHeight="@dimen/cardview_compat_inset_shadow"
+                    android:maxWidth="@dimen/cardview_compat_inset_shadow"
+                    android:src="@drawable/ic_glicemia"
+                    tools:ignore="PrivateResource" />
 
+                <TextView
+                    android:id="@+id/card_glicemia_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_toEndOf="@id/icon_glicemia"
+                    android:ellipsize="end"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:paddingStart="8dp"
+                    android:text="Glicemia"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+                    tools:ignore="RtlSymmetry" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/trendBtn"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:elevation="4dp"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="8dp"
-        android:text="Le mie statistiche"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-        android:textSize="16sp"
-        app:backgroundTint="@color/colorAccent"
-        app:cornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_glicemia"
-        app:layout_constraintVertical_bias="0.236" />
+                <TextView
+                    android:id="@+id/card_glicemia_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_toEndOf="@id/card_glicemia_title"
+                    android:layout_toStartOf="@+id/glic_unit"
+                    android:gravity="right"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"  />
+
+                <TextView
+                    android:id="@+id/glic_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center"
+                    android:text="mg/dL"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1" />
+            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/trendBtn"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:elevation="4dp"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="8dp"
+            android:text="Le mie statistiche"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
+            android:textSize="16sp"
+            app:backgroundTint="@color/colorAccent"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_glicemia"
+            app:layout_constraintVertical_bias="0.236" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

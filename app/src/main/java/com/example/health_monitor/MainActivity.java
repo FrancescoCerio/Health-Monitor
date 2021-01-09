@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.app.NotificationManager;
 import android.content.Context;
@@ -30,12 +29,11 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
     public static final int EDIT_REPORT_REQUEST = 2;
 
-    private ReportViewModel reportViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Controllo se l'app viene aperta per la prima volta e apro il walkthrough nel caso fosse vero
         SharedPreferences sharedPreferences = getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
         boolean isFirstTime = sharedPreferences.getBoolean("isFirstTime", true);
 
@@ -44,17 +42,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(welcomeActivity);
         }
 
+        // Apro la schermata iniziale di default
         setContentView(R.layout.activity_main);
         NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(AlarmBroadcastReceiver.NOTIFICATION_ID);
 
         setActionBarStyle(true);
-        reportViewModel = new ViewModelProvider(this,
-                ViewModelProvider
-                        .AndroidViewModelFactory
-                        .getInstance(this.getApplication()))
-                .get(ReportViewModel.class);
-
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
@@ -124,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    // handle button activities
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

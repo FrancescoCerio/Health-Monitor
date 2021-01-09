@@ -7,65 +7,184 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/filterLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/no_report_found_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#3BFFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:visibility="gone"
+        android:layout_height="match_parent">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/importanceChip"
-            style="@style/Widget.MaterialComponents.Chip.Entry"
+        <ImageView
+            android:id="@+id/no_report_image_diary"
+            android:layout_width="match_parent"
+            android:layout_height="430dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_no_report"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="0dp"
-            app:textStartPadding="8dp"
-            app:textEndPadding="8dp"
-            android:textSize="20sp"
-            app:closeIconEnabled="true"
-            app:closeIconSize="20dp"
+            android:lineSpacingExtra="4.7sp"
+            android:text="Nessun Report trovato"
             android:textColor="@color/colorPrimaryDark"
-            app:closeIconTint="@color/colorPrimary"
-            app:chipBackgroundColor="#663FA5FF"
-            app:chipIcon="@drawable/ic_important"
-            app:iconStartPadding="8dp" />
+            android:textSize="23.3sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/no_report_image_diary" />
 
-        <ImageButton
-            android:id="@+id/filterButton"
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="5dp"
-            android:backgroundTint="#00FFFFFF"
-            android:padding="0dp"
-            android:src="@drawable/ic_filter" />
-    </RelativeLayout>
+            android:layout_gravity="center_horizontal"
+            android:letterSpacing="0.0265"
+            android:text="Premi sul pulsante qui sotto"
+            android:textColor="@color/grayTxt"
+            android:layout_marginVertical="4dp"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="8dp"
-        android:paddingBottom="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterLayout">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/report_item" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:letterSpacing="0.0265"
+            android:text="per inserirne uno."
+            android:textColor="@color/grayTxt"
+            android:layout_marginVertical="4dp"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/diaryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/filterLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#3BFFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/importanceChip"
+                style="@style/Widget.MaterialComponents.Chip.Entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="0dp"
+                app:textStartPadding="8dp"
+                app:textEndPadding="8dp"
+                android:textSize="20sp"
+                app:closeIconEnabled="true"
+                app:closeIconSize="20dp"
+                android:textColor="@color/colorPrimaryDark"
+                app:closeIconTint="@color/colorPrimary"
+                app:chipBackgroundColor="#663FA5FF"
+                app:chipIcon="@drawable/ic_important"
+                app:iconStartPadding="8dp" />
+
+            <ImageButton
+                android:id="@+id/filterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#00FFFFFF"
+                android:padding="0dp"
+                android:src="@drawable/ic_filter" />
+        </RelativeLayout>
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            android:paddingBottom="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/filterLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/no_report_found_filter"
+                android:layout_width="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/no_report_image_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="430dp"
+                    android:layout_marginTop="32dp"
+                    android:src="@drawable/ic_no_report"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textViewFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="4.7sp"
+                    android:text="Nessun Report trovato"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="23.3sp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/no_report_image_filter" />
+
+                <TextView
+                    android:id="@+id/textViewFilter2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:letterSpacing="0.0265"
+                    android:text="Seleziona un altro filtro di ricerca"
+                    android:textColor="@color/grayTxt"
+                    android:layout_marginVertical="4dp"
+                    android:textSize="13sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewFilter" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/report_item" />
+
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

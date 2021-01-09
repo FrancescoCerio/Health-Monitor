@@ -30,7 +30,7 @@ public interface ReportDAO {
     @Query("SELECT * FROM reportdb ORDER BY tempPriority DESC")
     LiveData<List<Report>> getAllReport();
 
-    @Query("SELECT * FROM reportdb ORDER BY id DESC LIMIT 1")
+    @Query("SELECT * FROM reportdb ORDER BY date DESC LIMIT 1")
     LiveData<Report> getLastReport();
 
     @Query("SELECT * FROM reportdb WHERE id = :current_id")

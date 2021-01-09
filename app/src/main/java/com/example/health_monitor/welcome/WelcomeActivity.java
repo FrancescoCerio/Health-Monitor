@@ -34,20 +34,5 @@ public class WelcomeActivity extends AppCompatActivity {
 
         adapter_walkthrough.registerDataSetObserver(indicator.getDataSetObserver());
 
-        /*
-        Button openMain = findViewById(R.id.openMain);
-
-
-        openMain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences sharedPreferences = getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
-                sharedPreferences.edit().putBoolean("isFirstTime", false).apply();
-                Intent openMain = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(openMain);
-            }
-        });
-
-         */
     }
 }

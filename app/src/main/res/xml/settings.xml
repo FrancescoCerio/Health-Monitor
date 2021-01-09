@@ -11,6 +11,7 @@
 
     <SwitchPreferenceCompat
         app:key="notifications"
+        app:persistent="true"
         app:title="Abilita notifiche" />
 
     <Preference
@@ -38,7 +39,7 @@
     <EditTextPreference
         app:key="valueToMonitorNumber"
         android:title="Soglia massima"
-        android:defaultValue="100"
+        android:defaultValue="60"
         android:dependency="valueMonitor"
         />
 

@@ -21,26 +21,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="4.7sp"
-        android:text="Aggiungi Report"
+        android:text="Report"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="23.3sp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/second_image" />
-
-    <!--TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:lineSpacingExtra="4.7sp"
-        android:text=" ogni giorno"
-        android:textColor="@color/myfav"
-        android:textSize="23.3sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" /-->
+        app:layout_constraintTop_toBottomOf="@+id/second_image"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -62,7 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:letterSpacing="0.0265"
-        android:text="un Report ogni giorno in cui inserire i valori "
+        android:text="un Report ogni giorno in cui registrare i valori "
         android:textColor="@color/grayTxt"
         android:layout_marginVertical="4dp"
         android:textSize="13sp"
