@@ -9,6 +9,11 @@
     <color name="white">#fff</color>
     <color name="alarm">#FF1818</color>
 
+    <color name="blackTxt">#0d0e15</color>
+    <color name="grayTxt">#8c8c8c</color>
+    <color name="fav">#fe2042</color>
+    <color name="myfav">#007aff</color>
+
 
     <color name="inputTextField">#B53F04</color>
 

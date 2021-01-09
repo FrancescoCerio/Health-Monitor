@@ -58,7 +58,6 @@
         android:layout_marginHorizontal="6dp"
         app:cardCornerRadius="20dp"
         app:layout_constraintTop_toBottomOf="@+id/home_title"
-        app:cardElevation="4dp"
         android:background="@drawable/shadow">
 
         <RelativeLayout
@@ -131,7 +130,6 @@
         android:padding="4dp"
         android:layout_marginHorizontal="6dp"
         app:cardCornerRadius="20dp"
-        app:cardElevation="4dp"
         app:layout_constraintTop_toBottomOf="@+id/card_temperature">
 
         <RelativeLayout
@@ -204,7 +202,6 @@
         android:padding="4dp"
         android:layout_marginHorizontal="6dp"
         app:cardCornerRadius="20dp"
-        app:cardElevation="4dp"
         app:layout_constraintTop_toBottomOf="@+id/card_battito">
 
         <RelativeLayout
@@ -277,7 +274,6 @@
         android:padding="4dp"
         android:layout_marginHorizontal="6dp"
         app:cardCornerRadius="20dp"
-        app:cardElevation="4dp"
         app:layout_constraintTop_toBottomOf="@+id/card_pressione">
 
         <RelativeLayout

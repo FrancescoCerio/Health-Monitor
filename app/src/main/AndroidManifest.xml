@@ -44,6 +44,11 @@
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name=".welcome.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <receiver
             android:name=".AlarmBroadcastReceiver"
             android:process=":remote">
