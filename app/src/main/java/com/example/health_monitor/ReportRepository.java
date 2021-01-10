@@ -54,7 +54,6 @@ public class ReportRepository {
         return new GetReportByIdAsyncTask(report_dao).execute(current_id).get();
     }
 
-
     public Report getReportByDate(Date startDay, Date endDay) throws ExecutionException, InterruptedException {
         return new GetReportByDateAsyncTask(report_dao).execute(startDay, endDay).get();
     }

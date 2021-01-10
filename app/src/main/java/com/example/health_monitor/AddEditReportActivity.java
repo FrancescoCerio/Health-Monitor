@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -70,7 +71,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
 
     public static final String AVG_TOO_HIGH_CHANNEL = "AVG_TOO_HIGH_CHANNEL";
     public static final int AVG_NOTIFICATION_ID = 2;
-    public static Boolean isMonitoringActive = false;
+    public Boolean isMonitoringActive;
     public static Boolean isMonitorValueOverThreshold = false;
     public static String valueToMonitorInBackground;
     public static int valueToMonitorNumberInBackground;
@@ -110,6 +111,9 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
+        SharedPreferences sp = getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
+        isMonitoringActive = sp.getBoolean("isMonitoringActive", false);
 
         reportViewModel = new ViewModelProvider(this,
                 ViewModelProvider
@@ -396,6 +400,9 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
 
     private void checkAvgValue() throws ExecutionException, InterruptedException {
         ArrayList<Double> avgValues = reportViewModel.getAvgValues();
+        SharedPreferences sp = getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
+        valueToMonitorInBackground = sp.getString("value_to_monitor", "Battito");
+        valueToMonitorNumberInBackground = sp.getInt("value_to_monitor_number", 100);
         switch(valueToMonitorInBackground){
             case "Temperatura":
                 Double temp = avgValues.get(1);
@@ -449,6 +456,7 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
                 .setChannelId(AVG_TOO_HIGH_CHANNEL)
                 .setContentTitle("Ops... qualcosa non va")
                 .setContentText("Il valore medio " + valueToMonitorInBackground + " ha superato la soglia impostata di " + valueToMonitorNumberInBackground)
+                .setSubText("")
                 .setContentIntent(showAvgValuesIntent)
                 .setAutoCancel(true);
 

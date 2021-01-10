@@ -39,7 +39,7 @@
     <EditTextPreference
         app:key="valueToMonitorNumber"
         android:title="Soglia massima"
-        android:defaultValue="60"
+        android:defaultValue="100"
         android:dependency="valueMonitor"
         />
 

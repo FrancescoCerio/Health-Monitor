@@ -19,7 +19,6 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
 import static com.example.health_monitor.AddEditReportActivity.isMonitorValueOverThreshold;
-import static com.example.health_monitor.AddEditReportActivity.isMonitoringActive;
 import static com.example.health_monitor.AddEditReportActivity.valueToMonitorInBackground;
 import static com.example.health_monitor.AddEditReportActivity.valueToMonitorNumberInBackground;
 
@@ -178,15 +177,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void enableMonitoring(){
-        isMonitoringActive = true;
-        SharedPreferences sharedPreferences =
-                getContext().getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
-        valueToMonitorInBackground = sharedPreferences.getString("value_to_monitor", "Battito");
-        valueToMonitorNumberInBackground = sharedPreferences.getInt("value_to_monitor_number", 100);
+        SharedPreferences sp =  getContext().getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
+        valueToMonitorInBackground = sp.getString("value_to_monitor", "Battito");
+        valueToMonitorNumberInBackground = sp.getInt("value_to_monitor_number", 100);
+        sp.edit().putBoolean("isMonitoringActive", true).apply();
     }
 
     private void disableMonitoring(){
-        isMonitoringActive = false;
+        SharedPreferences sp =  getContext().getSharedPreferences("com.example.health_monitor", Context.MODE_PRIVATE);
+        sp.edit().putBoolean("isMonitoringActive", false).apply();
         isMonitorValueOverThreshold = false;
     }
 

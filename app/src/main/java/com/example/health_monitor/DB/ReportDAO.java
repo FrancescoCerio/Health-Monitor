@@ -1,6 +1,5 @@
 package com.example.health_monitor.DB;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,18 +38,6 @@ public interface ReportDAO {
     @TypeConverters(DateConverter.class)
     @Query("SELECT * FROM reportdb WHERE date BETWEEN :startDay AND :endDay")
     Report getReportByDate(Date startDay, Date endDay);
-
-    @Query("SELECT pressure FROM reportdb")
-    int[] getAllPressureValues();
-
-    @Query("SELECT glicemia FROM reportdb")
-    int[] getAllGlucoseValues();
-
-    @Query("SELECT temperature FROM reportdb")
-    int[] getAllTemperatureValues();
-
-    @Query("SELECT cardio FROM reportdb")
-    int[] getAllCardioValues();
 
     @Query("SELECT ROUND(AVG(pressure), 1) FROM reportdb")
     double getAvgPressure();
