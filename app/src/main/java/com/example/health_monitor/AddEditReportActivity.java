@@ -405,28 +405,28 @@ public class AddEditReportActivity extends AppCompatActivity implements DatePick
         valueToMonitorNumberInBackground = sp.getInt("value_to_monitor_number", 100);
         switch(valueToMonitorInBackground){
             case "Temperatura":
-                Double temp = avgValues.get(1);
+                Double temp = avgValues.get(0);
                 if(temp > valueToMonitorNumberInBackground) {
                     notifyAvgOverThreshold();
                 }
                 break;
 
             case "Battito":
-                Double batt = avgValues.get(2);
+                Double batt = avgValues.get(1);
                 if(batt > valueToMonitorNumberInBackground){
                     notifyAvgOverThreshold();
                 }
                 break;
 
             case "Pressione":
-                Double press = avgValues.get(3);
+                Double press = avgValues.get(2);
                 if(press > valueToMonitorNumberInBackground){
                     notifyAvgOverThreshold();
                 }
                 break;
 
             case "Glicemia":
-                Double glic = avgValues.get(4);
+                Double glic = avgValues.get(3);
                 if(glic > valueToMonitorNumberInBackground){
                     notifyAvgOverThreshold();
                 }

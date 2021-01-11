@@ -11,50 +11,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26eac295-0583-46da-bf47-bea87b44ff9c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/ic_launcher-playstore.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_foreground.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/AddEditReportActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/AddEditReportActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/DB/ReportDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/DB/ReportDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/ReportRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/ReportRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/SettingsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/health_monitor/SettingsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/xml/settings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3a_XL_API_29" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="223de0222d037ece" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -319,43 +292,43 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="525" height="466" key="DebuggerActiveHint/0.0.1440.900@0.0.1440.900" timestamp="1610038766034" />
-    <state width="1398" height="2" key="GridCell.Tab.0.bottom" timestamp="1610311527007">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="368" key="GridCell.Tab.0.bottom" timestamp="1610316970641">
+      <screen x="0" y="25" width="1440" height="814" />
     </state>
     <state width="699" height="523" key="GridCell.Tab.0.bottom/0.0.1440.900/-1194.66.1194.834@0.0.1440.900" timestamp="1607021375144" />
     <state width="1398" height="185" key="GridCell.Tab.0.bottom/0.0.1440.900/-245.-1080.1920.1080@0.0.1440.900" timestamp="1605784126990" />
-    <state width="1398" height="2" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1610311527007" />
-    <state width="1398" height="221" key="GridCell.Tab.0.bottom/0.25.1440.814@0.25.1440.814" timestamp="1610310929103" />
+    <state width="1398" height="368" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1610315170340" />
+    <state width="1398" height="368" key="GridCell.Tab.0.bottom/0.25.1440.814@0.25.1440.814" timestamp="1610316970641" />
     <state width="1398" height="117" key="GridCell.Tab.0.bottom/0.25.1440.816/-769.-743.1360.743@0.25.1440.816" timestamp="1609784310335" />
     <state width="1398" height="67" key="GridCell.Tab.0.bottom/0.25.1440.816@0.25.1440.816" timestamp="1609788950716" />
     <state width="1398" height="330" key="GridCell.Tab.0.bottom/0.25.1440.818@0.25.1440.818" timestamp="1605805705204" />
-    <state width="1398" height="2" key="GridCell.Tab.0.center" timestamp="1610311527006">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="368" key="GridCell.Tab.0.center" timestamp="1610316970641">
+      <screen x="0" y="25" width="1440" height="814" />
     </state>
     <state width="699" height="523" key="GridCell.Tab.0.center/0.0.1440.900/-1194.66.1194.834@0.0.1440.900" timestamp="1607021375143" />
     <state width="1398" height="185" key="GridCell.Tab.0.center/0.0.1440.900/-245.-1080.1920.1080@0.0.1440.900" timestamp="1605784126989" />
-    <state width="1398" height="2" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1610311527006" />
-    <state width="1398" height="221" key="GridCell.Tab.0.center/0.25.1440.814@0.25.1440.814" timestamp="1610310929102" />
+    <state width="1398" height="368" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1610315170339" />
+    <state width="1398" height="368" key="GridCell.Tab.0.center/0.25.1440.814@0.25.1440.814" timestamp="1610316970641" />
     <state width="1398" height="117" key="GridCell.Tab.0.center/0.25.1440.816/-769.-743.1360.743@0.25.1440.816" timestamp="1609784310334" />
     <state width="1398" height="67" key="GridCell.Tab.0.center/0.25.1440.816@0.25.1440.816" timestamp="1609788950715" />
     <state width="1398" height="330" key="GridCell.Tab.0.center/0.25.1440.818@0.25.1440.818" timestamp="1605805705203" />
-    <state width="1398" height="2" key="GridCell.Tab.0.left" timestamp="1610311527006">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="368" key="GridCell.Tab.0.left" timestamp="1610316970640">
+      <screen x="0" y="25" width="1440" height="814" />
     </state>
     <state width="699" height="523" key="GridCell.Tab.0.left/0.0.1440.900/-1194.66.1194.834@0.0.1440.900" timestamp="1607021375142" />
     <state width="1398" height="185" key="GridCell.Tab.0.left/0.0.1440.900/-245.-1080.1920.1080@0.0.1440.900" timestamp="1605784126988" />
-    <state width="1398" height="2" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1610311527006" />
-    <state width="1398" height="221" key="GridCell.Tab.0.left/0.25.1440.814@0.25.1440.814" timestamp="1610310929102" />
+    <state width="1398" height="368" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1610315170338" />
+    <state width="1398" height="368" key="GridCell.Tab.0.left/0.25.1440.814@0.25.1440.814" timestamp="1610316970640" />
     <state width="1398" height="117" key="GridCell.Tab.0.left/0.25.1440.816/-769.-743.1360.743@0.25.1440.816" timestamp="1609784310334" />
     <state width="1398" height="67" key="GridCell.Tab.0.left/0.25.1440.816@0.25.1440.816" timestamp="1609788950715" />
     <state width="1398" height="330" key="GridCell.Tab.0.left/0.25.1440.818@0.25.1440.818" timestamp="1605805705202" />
-    <state width="1398" height="2" key="GridCell.Tab.0.right" timestamp="1610311527007">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state width="1398" height="368" key="GridCell.Tab.0.right" timestamp="1610316970641">
+      <screen x="0" y="25" width="1440" height="814" />
     </state>
     <state width="699" height="523" key="GridCell.Tab.0.right/0.0.1440.900/-1194.66.1194.834@0.0.1440.900" timestamp="1607021375144" />
     <state width="1398" height="185" key="GridCell.Tab.0.right/0.0.1440.900/-245.-1080.1920.1080@0.0.1440.900" timestamp="1605784126990" />
-    <state width="1398" height="2" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1610311527007" />
-    <state width="1398" height="221" key="GridCell.Tab.0.right/0.25.1440.814@0.25.1440.814" timestamp="1610310929103" />
+    <state width="1398" height="368" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1610315170339" />
+    <state width="1398" height="368" key="GridCell.Tab.0.right/0.25.1440.814@0.25.1440.814" timestamp="1610316970641" />
     <state width="1398" height="117" key="GridCell.Tab.0.right/0.25.1440.816/-769.-743.1360.743@0.25.1440.816" timestamp="1609784310335" />
     <state width="1398" height="67" key="GridCell.Tab.0.right/0.25.1440.816@0.25.1440.816" timestamp="1609788950716" />
     <state width="1398" height="330" key="GridCell.Tab.0.right/0.25.1440.818@0.25.1440.818" timestamp="1605805705203" />
